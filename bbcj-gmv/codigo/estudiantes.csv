@@ -1,0 +1,11 @@
+id_estudiante,nombre,carrera,gpa,idiomas,pais_interes
+1,Ana Garcia,Ingenieria,3.8,"Ingles C1, Espanol",Estados Unidos
+2,Carlos Lopez,Ciencias de la Computacion,3.2,"Ingles B2, Espanol",Alemania
+3,Maria Rodriguez,Medicina,3.9,"Ingles B2, Aleman A2, Espanol",Alemania
+4,Jorge Martinez,Economia,3.1,"Ingles B1, Espanol",Espana
+5,Laura Fernandez,Ciencias Sociales,2.9,"Ingles B2, Espanol",Belgica
+6,Pedro Sanchez,Robotica,3.5,"Ingles B1, Japones N3, Espanol",Japon
+7,Sofia Torres,Arquitectura,3.4,"Ingles B2, Espanol",Estados Unidos
+8,Miguel Ramirez,Matematicas,3.6,"Ingles C1, Frances B2, Espanol",Francia
+9,Diana Herrera,Desarrollo,3.0,"Ingles B2, Espanol",Colombia
+10,Ricardo Diaz,Ciencias,2.7,"Espanol",Chile

@@ -1,0 +1,23 @@
+DOCUMENTO DE LEVANTAMIENTO DE REQUERIMIENTOS
+Proyecto: Sistema de Recomendación de Becas con Huawei MaaS
+
+1. DESCRIPCIÓN DEL PROBLEMA
+La Oficina de Relaciones Internacionales recibe cientos de convocatorias, y los estudiantes pierden oportunidades por la dificultad de encontrar becas relevantes a su perfil. Se requiere un sistema automatizado para reducir esta fricción.
+
+2. REQUERIMIENTOS FUNCIONALES (RF)
+- RF01: El sistema debe leer perfiles de estudiantes y convocatorias de becas desde archivos en formato CSV.
+- RF02: El sistema debe realizar un pre-filtrado mediante reglas duras para optimizar recursos: descartar becas con fecha de cierre vencida y becas cuyo GPA mínimo sea mayor al GPA del estudiante.
+- RF03: El sistema debe integrarse vía API con Huawei MaaS, utilizando el modelo DeepSeek v3.2 para evaluar la afinidad semántica.
+- RF04: El sistema debe generar como salida un archivo de texto con las 3 mejores becas por estudiante.
+
+3. CRITERIOS DE NEGOCIO (Lógica de Match)
+- C1: Afinidad semántica entre la carrera del estudiante y las carreras aceptadas.
+- C2: El GPA del estudiante debe ser mayor o igual al mínimo exigido.
+- C3: El nivel de idioma del estudiante debe ser igual o superior al requerido.
+- C4: Prioridad extra si el país de interés coincide con el país de la beca.
+- C5: Prioridad a las becas con fecha de cierre más próxima.
+
+4. REQUERIMIENTOS NO FUNCIONALES (RNF)
+- RNF01: El desarrollo debe realizarse en Python.
+- RNF02: Manejo seguro de credenciales mediante variables de entorno.
+- RNF03: El sistema debe manejar excepciones (ej. estudiantes sin becas compatibles).

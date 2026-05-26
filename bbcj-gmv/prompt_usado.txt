@@ -1,0 +1,16 @@
+Actúa como un desarrollador de software experto. Necesito un script en Python usando pandas para un sistema de recomendación de becas.
+
+Tengo dos archivos CSV:
+1. 'estudiantes.csv' (id_estudiante, nombre, carrera, gpa, idiomas, pais_interes)
+2. 'becas.csv' (id_beca, nombre_beca, pais, carreras_aceptadas, gpa_minimo, idioma_requerido, fecha_cierre)
+
+Lógica requerida:
+1. Carga los CSV.
+2. PRE-FILTRO: Filtra y elimina las becas cuya 'fecha_cierre' ya pasó.
+3. PRE-FILTRO: Para cada estudiante, filtra las becas donde su 'gpa' sea menor al 'gpa_minimo' requerido.
+4. INTEGRADOR IA: Con las becas restantes, crea una función que simule el envío del perfil del estudiante y las becas a una API (usaremos DeepSeek v3.2). 
+5. REGLAS PARA LA IA: La IA debe emparejar máximo 3 becas evaluando: afinidad de carrera, que el nivel de idioma del estudiante sea >= al requerido, y dando prioridad si el país coincide y si la fecha de cierre es próxima.
+6. Maneja el caso especial donde un estudiante no tenga becas disponibles después del pre-filtro.
+7. Genera un archivo 'reporte_becas.txt' con los resultados estructurados.
+
+Escribe el código limpio, comentado y modular.
