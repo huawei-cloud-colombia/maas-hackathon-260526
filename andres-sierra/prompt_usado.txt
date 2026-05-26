@@ -1,65 +1,81 @@
-# Prompts utilizados en Huawei MaaS + OpenCode
+# PROMPT MAESTRO - HUAWEI CLOUD HACKATHON
+## Plataforma web inteligente para recomendación explicable de becas
 
-## Prompt 1: Integración OpenCode + MaaS
+Actúa como un equipo senior autónomo de producto, desarrollo, IA y QA. Tu misión es construir, probar y dejar lista para demostración una solución web competitiva para la hackatón Huawei Cloud: un sistema que cargue `becas.csv` y `estudiantes.csv`, determine elegibilidad y presente las 3 becas más afines por estudiante con explicación clara y uso real de DeepSeek en MaaS.
 
-"Integra OpenCode con Huawei Cloud MaaS ModelArts. Crea un cliente Python que:
-- Conecte con endpoint: https://api-ap-southeast-1.modelarts-maas.com/openai/v1
-- Use modelo GLM-5
-- Implemente métodos para: chat_completion, code_generation, code_analysis
-- Maneje autenticación con API key de forma segura
-- Valide respuestas y errores de API
-Sigue estándares OpenAI SDK."
+## Reglas no negociables
+- No empieces creando archivos nuevos inmediatamente. Primero inspecciona estructura, instrucciones, CSV, dependencias y código existente.
+- Si encuentras una solución implementada parcialmente, extiéndela en lugar de reemplazarla.
+- No inventes campos, reglas, endpoints, credenciales ni equivalencias académicas.
+- No expongas API keys en código, logs, commits, capturas o reportes.
+- Si existe una regla local para usar `rtk`, ejecuta los comandos mediante `rtk`.
+- Trabaja hasta dejar demo funcional, pruebas ejecutadas y entregables listos para repositorio.
 
-## Prompt 2: Generación de cliente MaaS
+## Caso confirmado
+La Oficina de Relaciones Internacionales de una universidad recibe muchas convocatorias y necesita filtrar y priorizar becas según el perfil del estudiante.
 
-"Crea un cliente Python robusto para Huawei MaaS con:
-- Clase HuaweiMaaSClient que encapsule conexión
-- Método chat_completion(messages, temperature, max_tokens)
-- Método code_generation(prompt, language)
-- Método analyze_code(code)
-- Manejo de excepciones y timeouts
-- Logging de solicitudes
-- Documentación con docstrings
-Usa OpenAI SDK como base, compatibilidad completa."
+Archivos de entrada:
+- `becas.csv`: `id_beca`, `nombre_beca`, `pais`, `monto`, `carreras_aceptadas`, `gpa_minimo`, `idioma_requerido`, `fecha_cierre`, `requiere_carta`, `situacion_ec`.
+- `estudiantes.csv`: `id_estudiante`, `nombre`, `carrera`, `gpa`, `idiomas`, `pais_interes`, `situacion_economica`, `email`.
 
-## Prompt 3: Configuración segura
+Criterios del reto:
+1. Coincidencia de carrera: exacta primero; afín puede ser aceptada si está justificada.
+2. GPA del estudiante mayor o igual al mínimo requerido.
+3. Idioma del estudiante con nivel igual o superior al requerido.
+4. País de interés incrementa prioridad.
+5. Fecha de cierre próxima incrementa prioridad.
 
-"Diseña esquema de configuración para OpenCode + Huawei MaaS:
-- Template JSON de configuración
-- Variables de entorno (.env)
-- Instrucciones de setup
-- Mejores prácticas de seguridad
-- Gestión de credenciales
-No incluir claves en repositorio. Usar gitignore."
+Requisitos obligatorios del evento:
+- Usar GLM 5.1 de MaaS como apoyo para desarrollo.
+- Integrar una funcionalidad real con DeepSeek en MaaS, recomendado `deepseek-v3.2`.
+- Entregar código, `requerimientos.txt`, `prompt_usado.txt` y reporte de las 3 mejores becas por estudiante.
 
-## Prompt 4: Documentación README
+## Investigación técnica ya definida
+Usa esta arquitectura rápida y demostrable:
+- Backend y servidor web: Python + Flask.
+- Frontend: HTML5 + Jinja templates + Bootstrap 5.3 por CDN + CSS mínimo propio.
+- Datos: pandas para carga, limpieza y procesamiento CSV.
+- IA: SDK compatible con OpenAI apuntando a Huawei Cloud MaaS API V2.
+- Pruebas: `pytest`.
+- Persistencia: no agregues base de datos salvo que ya exista; para la demo procesa archivos y genera resultados exportables.
 
-"Escribe README completo para solución Hackathon Huawei MaaS:
-- Descripción del proyecto
-- Prerrequisitos y dependencias
-- Pasos instalación detallados
-- Configuración OpenCode + MaaS
-- Ejemplos de uso con cliente Python
-- Troubleshooting común
-- Referencias y documentación oficial
-Formato markdown, secc iones claras."
+La documentación oficial de Huawei indica:
+- Endpoint de referencia MaaS V2: `https://api-ap-southeast-1.modelarts-maas.com/v2/chat/completions`.
+- Autenticación: `Authorization: Bearer <MAAS_API_KEY>`.
+- Modelos deben confirmarse desde consola o endpoint `/v2/models`; usa `deepseek-v3.2` si está habilitado por soporte.
+- Si soporte entrega una URL o model ID diferente, usa esos valores configurables y no los reemplaces.
 
-## Prompt 5: Validación y testing
+## Motor de elegibilidad obligatorio
+Antes de puntuar, elimina o marca como no elegibles:
+- Becas donde `gpa < gpa_minimo`.
+- Becas donde el idioma requerido no esté presente o el nivel CEFR sea inferior. Implementa orden `A1 < A2 < B1 < B2 < C1 < C2`.
+- Becas cerradas respecto a una `FECHA_EVALUACION` configurable.
 
-"Crea tests para cliente HuaweiMaaSClient:
-- Test de autenticación
-- Test de conexión a endpoint
-- Test de métodos (chat, code gen, analysis)
-- Manejo de errores y excepciones
-- Mock de respuestas de API
-- Validación de formato de requests/responses
-Usa pytest, no requiere API key real en tests."
+## Ranking explicable
+Después de los filtros obligatorios, puntúa únicamente criterios defendibles:
+- Carrera exacta: 60 puntos.
+- Carrera afín confirmada por reglas existentes o DeepSeek con salida JSON válida: 40 puntos.
+- País de interés coincide: 20 puntos.
+- Fecha de cierre próxima: hasta 20 puntos, con función documentada y fecha de evaluación explícita.
 
----
+Desempates:
+1. Mayor puntaje.
+2. Fecha de cierre más próxima.
+3. Mayor monto.
+4. `id_beca` ascendente.
 
-**Contexto de desarrollo:**
-- Hackathón Huawei Colombia MaaS - 26 de mayo de 2026
-- Integración OpenCode con plataforma MaaS
-- Cliente Python con OpenAI SDK compatible
-- Enfoque en producción: seguridad, documentación, testing
-- Región: Asia-Pacific (Hongkong)
+## Integración real con DeepSeek en Huawei MaaS
+Configura mediante `.env.example`:
+- `MAAS_BASE_URL=https://api-ap-southeast-1.modelarts-maas.com/v2`
+- `MAAS_API_KEY=`
+- `MAAS_MODEL=deepseek-v3.2`
+- `FECHA_EVALUACION=`
+
+Implementa:
+- Cliente compatible con OpenAI usando `base_url` configurable.
+- `temperature=0` para respuestas consistentes.
+- Solicitud JSON con: `es_afin`, `nivel_afinidad`, `razon_breve`, `confianza`.
+- Validación estricta del JSON devuelto.
+- Timeout y captura de errores.
+- Fallback: si MaaS falla, solo se aceptan coincidencias exactas; la UI muestra que la recomendación fue generada sin enriquecimiento IA.
+- Nunca envíes correos ni información personal innecesaria al modelo.

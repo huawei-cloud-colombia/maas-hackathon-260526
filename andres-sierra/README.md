@@ -1,164 +1,138 @@
-# Solución Hackathon Huawei Colombia MaaS
+# BecaMatch AI
 
-## 📋 Descripción
+Plataforma web inteligente para recomendación explicable de becas, desarrollada para el Hackatón Huawei Cloud MaaS 2026.
 
-Solución integrada con **OpenCode** y **Huawei Cloud MaaS ModelArts** para el Hackatón Huawei Colombia MaaS - 26 de mayo de 2026.
+## Descripción
 
-### Características
-- Integración con API de Huawei MaaS ModelArts
-- Cliente Python para modelos GLM-5
-- Soporte para generación y análisis de código
-- Configuración segura con variables de entorno
+BecaMatch AI carga archivos `becas.csv` y `estudiantes.csv`, determina elegibilidad mediante un motor determinístico, y presenta las 3 becas más afines por estudiante con explicación verificable. Integra DeepSeek en Huawei Cloud MaaS para validar afinidades de carrera ambiguas y generar explicaciones enriquecidas.
 
-## 📦 Requisitos previos
+## Requisitos
 
-### Obligatorio
-- **Python 3.8+**
-- **Node.js 18+** (para OpenCode)
-- **pip** (gestor de paquetes Python)
-- Cuenta de Huawei Cloud con acceso a MaaS
+- Python 3.8+
+- pip
 
-### Opcional
-- Visual Studio Code (para usar extensión OpenCode)
+## Instalación
 
-## ⚙️ Instalación y configuración
-
-### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/huawei-cloud-colombia/maas-hackathon-260526.git
-cd maas-hackathon-260526/andres-sierra
+cd andres-sierra/codigo
+pip install -r requirements.txt
 ```
 
-### 2. Crear entorno virtual
+## Configuración MaaS/DeepSeek
+
+1. Copiar `.env.example` a `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Editar `.env` y agregar tu API key de Huawei Cloud MaaS:
+   ```
+   MAAS_API_KEY=tu-api-key-aqui
+   ```
+3. Sin API key, la aplicación funciona en modo fallback (solo coincidencias exactas de carrera).
+
+## Ejecución
+
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\Scripts\activate
+cd andres-sierra/codigo
+python app.py
 ```
 
-### 3. Instalar dependencias Python
+Abrir http://localhost:5000 en el navegador.
+
+## Uso
+
+1. Cargar `becas.csv` y `estudiantes.csv` (se incluyen ejemplos en `data/`).
+2. Opcionalmente configurar fecha de evaluación para filtrar becas cerradas.
+3. Presionar "Generar recomendaciones".
+4. Ver resultados con top 3 por estudiante, badges de criterios, puntajes.
+5. Descargar reporte en .txt o .csv.
+
+## Pruebas
+
 ```bash
-pip install -r requerimientos.txt
+cd andres-sierra/codigo
+python -m pytest tests/ -v
 ```
 
-### 4. Instalar OpenCode (global)
-```bash
-npm install -g opencode-ai
-```
-
-### 5. Configurar Huawei MaaS API
-
-#### Opción A: Variable de entorno (recomendado)
-```bash
-export HUAWEI_MAAS_API_KEY="tu-api-key-aqui"
-```
-
-En Windows (PowerShell):
-```powershell
-$env:HUAWEI_MAAS_API_KEY = "tu-api-key-aqui"
-```
-
-#### Opción B: Archivo de configuración OpenCode
-1. Copia `opencode-config-template.json` a `~/.config/opencode/opencode.json`
-2. Reemplaza `${HUAWEI_MAAS_API_KEY}` con tu clave API real
-3. Asegúrate de que el archivo tenga permisos seguros:
-```bash
-chmod 600 ~/.config/opencode/opencode.json
-```
-
-### 6. Obtener API Key de Huawei Cloud
-
-1. Accede a [Huawei Cloud Console](https://www.huaweicloud.com/)
-2. Navega a **API Management** → **My Credentials**
-3. Genera una nueva **API Key**
-4. Descárgala y almacénala de forma segura
-5. Usa la clave en tu configuración
-
-## 🚀 Ejecución
-
-### Ejecutar solución principal
-```bash
-python codigo/main.py
-```
-
-### Usar OpenCode directamente
-```bash
-opencode
-# Dentro de OpenCode, usa /models para seleccionar GLM-5
-```
-
-### Usar cliente MaaS en Python
-```python
-from codigo.huawei_maas_client import HuaweiMaaSClient
-
-client = HuaweiMaaSClient()
-
-# Chat
-response = client.chat_completion([
-    {"role": "user", "content": "¿Qué es Huawei Cloud?"}
-])
-print(response)
-
-# Generación de código
-code = client.code_generation("Función para sumar dos números")
-print(code)
-
-# Análisis de código
-analysis = client.analyze_code("def add(a, b): return a + b")
-print(analysis)
-```
-
-## 📁 Estructura del proyecto
+## Estructura
 
 ```
 andres-sierra/
-├── README.md                      # Este archivo
-├── requerimientos.txt             # Dependencias Python
-├── prompt_usado.txt               # Prompts utilizados en MaaS
-├── reporte_becas.txt              # Reporte de becas
-├── opencode-config-template.json  # Template de configuración OpenCode
-├── .gitignore                     # Archivos a ignorar
+├── README.md
+├── requerimientos.txt
+├── prompt_usado.txt
+├── reporte_becas.txt
+├── .gitignore
 └── codigo/
-    ├── main.py                    # Punto de entrada principal
-    └── huawei_maas_client.py      # Cliente para MaaS API
+    ├── app.py                    # Aplicación Flask
+    ├── config.py                 # Configuración
+    ├── requirements.txt
+    ├── .env.example
+    ├── services/
+    │   ├── data_loader.py        # Carga y validación CSV
+    │   ├── eligibility.py        # Filtros de elegibilidad
+    │   ├── ranking.py            # Scoring y ranking
+    │   └── maas_client.py        # Cliente MaaS/DeepSeek
+    ├── templates/
+    │   ├── base.html
+    │   ├── index.html
+    │   └── results.html
+    ├── static/
+    │   └── styles.css
+    ├── data/
+    │   ├── becas.csv
+    │   └── estudiantes.csv
+    ├── tests/
+    │   ├── test_data_loader.py
+    │   ├── test_eligibility.py
+    │   ├── test_ranking.py
+    │   └── test_maas_client.py
+    └── outputs/
+        └── reporte_recomendaciones.txt
 ```
 
-## 🔐 Seguridad
+## Motor de elegibilidad
 
-- **Nunca** subir `API_KEY` al repositorio
-- Usar `.gitignore` para archivos sensibles
-- Almacenar credenciales en variables de entorno
-- Usar `opencode.json` con permisos `600`
+Filtros obligatorios antes de puntuar:
+- GPA del estudiante >= gpa_minimo de la beca
+- Idioma del estudiante con nivel CEFR >= requerido (A1 < A2 < B1 < B2 < C1 < C2)
+- Beca no cerrada respecto a FECHA_EVALUACION
+- Situación económica compatible (baja < media < alta)
 
-## 📚 Referencias
+## Scoring
 
-- [Huawei Cloud MaaS Documentation](https://support.huaweicloud.com/intl/en-us/model-call-maas/maas-modelarts-0909.html)
-- [OpenCode AI Documentation](https://opencode.ai/)
-- [OpenAI Python Client](https://github.com/openai/openai-python)
+| Criterio | Puntos |
+|----------|--------|
+| Carrera exacta | 60 |
+| Carrera afín (validada por IA) | 40 |
+| País de interés coincide | 20 |
+| Fecha de cierre próxima | Hasta 20 |
 
-## 🧪 Troubleshooting
+Desempates: mayor puntaje > fecha más próxima > mayor monto > id_beca ascendente.
 
-### Error: "HUAWEI_MAAS_API_KEY no configurada"
-```bash
-export HUAWEI_MAAS_API_KEY="tu-clave-api"
-```
+## Integración MaaS/DeepSeek
 
-### Error: "opencode not found"
-```bash
-npm install -g opencode-ai
-which opencode  # Verifica instalación
-```
+- Cliente compatible con OpenAI SDK apuntando a Huawei Cloud MaaS V2
+- Model: deepseek-v3.2 (configurable)
+- temperature=0 para respuestas deterministas
+- JSON estructurado: es_afin, nivel_afinidad, razon_breve, confianza
+- Fallback automático si MaaS no disponible
 
-### Error de conexión a API
-- Verifica que la región sea **CN-Hong Kong**
-- Comprueba que tu API key sea válida
-- Asegúrate de tener acceso a MaaS en tu cuenta Huawei
+## Guion de demo (2 minutos)
 
-## 👤 Autor
+1. **Problema**: Estudiantes pierden becas relevantes; la oficina procesa convocatorias manualmente.
+2. **Carga**: Subir becas.csv y estudiantes.csv con fecha de evaluación 6/1/2025.
+3. **Resultados**: Top 3 por estudiante con puntaje y badges verificables.
+4. **Carrera afín**: Mostrar caso donde DeepSeek valida afinidad (si MaaS configurado) o indicar modo fallback.
+5. **Exportación**: Descargar reporte .txt.
+6. **Cierre**: Reglas auditables, IA donde aporta valor, lista para escalar.
 
-**Andres Sierra**  
-Participante del Hackatón Huawei Colombia MaaS  
-Fecha: 26 de mayo de 2026
+## Seguridad
 
----
+- API keys solo en variables de entorno (.env en .gitignore)
+- No se envían datos personales al modelo
+- .env.example sin secretos reales
 
-*Para soporte, consulta la documentación oficial de Huawei Cloud MaaS*
+## Autor
+
+Andres Sierra - Hackatón Huawei Cloud MaaS 2026

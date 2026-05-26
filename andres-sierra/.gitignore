@@ -74,3 +74,9 @@ API_KEY
 *.tmp
 *.temp
 *.log
+
+# Flask
+instance/
+
+# Outputs generados (se regeneran)
+codigo/outputs/

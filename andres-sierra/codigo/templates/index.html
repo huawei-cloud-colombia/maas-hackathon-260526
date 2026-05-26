@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}BecaMatch AI - Cargar Datos{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-primary">Encuentra la beca correcta antes de que cierre</h1>
+            <p class="lead text-muted">Carga los datos de becas y estudiantes, y obt&eacute;n las 3 mejores recomendaciones con explicaci&oacute;n verificable.</p>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-warning">{{ error }}</div>
+        {% endif %}
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-file-earmark-spreadsheet text-primary me-1"></i>Becas (becas.csv)
+                            </label>
+                            <input type="file" class="form-control" id="becas_csv" name="becas_csv" accept=".csv" required>
+                            <div class="form-text">Columnas: id_beca, nombre_beca, pa&iacute;s, monto, carreras_aceptadas, gpa_minimo, idioma_requerido, fecha_cierre, requiere_carta, situacion_ec</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-file-earmark-person text-primary me-1"></i>Estudiantes (estudiantes.csv)
+                            </label>
+                            <input type="file" class="form-control" id="estudiantes_csv" name="estudiantes_csv" accept=".csv" required>
+                            <div class="form-text">Columnas: id_estudiante, nombre, carrera, gpa, idiomas, pais_interes, situacion_economica, email</div>
+                        </div>
+                    </div>
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-calendar3 text-secondary me-1"></i>Fecha de evaluaci&oacute;n
+                            </label>
+                            <input type="text" class="form-control" id="fecha_evaluacion" name="fecha_evaluacion" placeholder="M/D/YYYY (ej: 6/1/2025)" value="">
+                            <div class="form-text">Becas con fecha de cierre anterior a esta fecha se marcan como cerradas. Vac&iacute;o = no filtrar por fecha.</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5" id="btnGenerate">
+                            <i class="bi bi-stars me-2"></i>Generar recomendaciones
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="alertArea"></div>
+
+        <div id="loadingArea" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-muted">Procesando elegibilidad y generando recomendaciones...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnGenerate');
+    const loading = document.getElementById('loadingArea');
+    const alertArea = document.getElementById('alertArea');
+    btn.disabled = true;
+    loading.classList.remove('d-none');
+    alertArea.innerHTML = '';
+
+    const formData = new FormData(this);
+    try {
+        const resp = await fetch('/upload', {method: 'POST', body: formData});
+        const data = await resp.json();
+        if (data.error) {
+            alertArea.innerHTML = `<div class="alert alert-danger"><i class="bi bi-exclamation-triangle me-2"></i>${data.error}</div>`;
+        } else if (data.success) {
+            window.location.href = '/results';
+        }
+    } catch(err) {
+        alertArea.innerHTML = `<div class="alert alert-danger">Error de conexi&oacute;n: ${err.message}</div>`;
+    } finally {
+        btn.disabled = false;
+        loading.classList.add('d-none');
+    }
+});
+</script>
+{% endblock %}

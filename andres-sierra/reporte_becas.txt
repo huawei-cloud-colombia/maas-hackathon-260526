@@ -1,39 +1,155 @@
-# Reporte de Becas - Hackatón Huawei Colombia MaaS
+======================================================================
+REPORTE DE RECOMENDACIONES DE BECAS - BecaMatch AI
+======================================================================
+Fecha de evaluacion: 6/1/2025
+Generado: 2026-05-26 10:49:24
 
-## Fecha: 26 de mayo de 2026
+METRICAS
+----------------------------------------
+Estudiantes procesados: 6
+Becas evaluadas: 10
+Matches elegibles: 21
+IA disponible: No (modo fallback)
 
-### Participante: Andres Sierra
+TOP 3 BECAS POR ESTUDIANTE
+======================================================================
 
-#### Top 3 Becas Más Afines
+Estudiante: María García (ID: E001)
+  Carrera: Ingeniería de Sistemas
+  GPA: 3.8
+  Pais de interes: Alemania
+  Situacion economica: media
 
-**1. Beca Huawei Cloud Computing**
-   - Descripción: Beca completa para especialización en servicios cloud de Huawei
-   - Duración: 12 meses
-   - Beneficios: Acceso a plataformas premium, mentoría directa, certificación oficial
-   - Compatibilidad: Muy Alta (Requisitos técnicos cumplidos)
+  1. Beca DAAD (B005)
+     Pais: Alemania | Monto: $15,000
+     Puntaje: 90.2/100
+     Criterios: Carrera exacta, País preferido, Cierre próximo (+10.2pts)
+     Fecha cierre: 7/15/2025 | Carta: No
 
-**2. Beca de Desarrollo de IA y Machine Learning**
-   - Descripción: Programa de especialización en IA/ML con enfoque en aplicaciones empresariales
-   - Duración: 9 meses
-   - Beneficios: Laboratorios virtuales, cursos avanzados, proyecto final patrocinado
-   - Compatibilidad: Alta (Demostró interés en soluciones tecnológicas avanzadas)
+  2. Beca Huawei Seeds for the Future (B008)
+     Pais: China | Monto: $22,000
+     Puntaje: 60/100
+     Criterios: Carrera exacta, País no coincide, Cierre no próximo
+     Fecha cierre: 12/31/2025 | Carta: Si
 
-**3. Beca de Liderazgo Técnico**
-   - Descripción: Programa para desarrollar habilidades de liderazgo en equipos de tecnología
-   - Duración: 6 meses
-   - Beneficios: Coaching ejecutivo, red de contactos con líderes de industria, bolsa económica
-   - Compatibilidad: Alta (Potencial demostrado en el desarrollo del reto)
+  3. Beca Erasmus Mundus (B002)
+     Pais: Alemania | Monto: $18,000
+     Puntaje: 20/100
+     Criterios: Carrera no coincide, País preferido, Cierre no próximo
+     Fecha cierre: 9/30/2025 | Carta: Si
 
----
 
-## Criterios de evaluación utilizados:
+Estudiante: Juan Torres (ID: E006)
+  Carrera: Ingeniería Informática
+  GPA: 3.4
+  Pais de interes: China
+  Situacion economica: media
 
-- Desempeño técnico en el hackathon
-- Innovación en la solución propuesta
-- Conocimiento demostrado de plataformas cloud
-- Capacidad de trabajo en equipo
-- Potencial de crecimiento profesional
+  1. Beca Huawei Seeds for the Future (B008)
+     Pais: China | Monto: $22,000
+     Puntaje: 80/100
+     Criterios: Carrera exacta, País preferido, Cierre no próximo
+     Fecha cierre: 12/31/2025 | Carta: Si
 
----
+  2. Beca DAAD (B005)
+     Pais: Alemania | Monto: $15,000
+     Puntaje: 70.2/100
+     Criterios: Carrera exacta, País no coincide, Cierre próximo (+10.2pts)
+     Fecha cierre: 7/15/2025 | Carta: No
 
-*Reporte generado automáticamente después del hackathon*
+  3. Beca Erasmus Mundus (B002)
+     Pais: Alemania | Monto: $18,000
+     Puntaje: 0/100
+     Criterios: Carrera no coincide, País no coincide, Cierre no próximo
+     Fecha cierre: 9/30/2025 | Carta: Si
+
+
+Estudiante: Ana Martínez (ID: E003)
+  Carrera: Matemáticas
+  GPA: 3.9
+  Pais de interes: Francia
+  Situacion economica: baja
+
+  1. Beca Conicet (B006)
+     Pais: Argentina | Monto: $12,000
+     Puntaje: 73.6/100
+     Criterios: Carrera exacta, País no coincide, Cierre próximo (+13.6pts)
+     Fecha cierre: 6/30/2025 | Carta: No
+
+  2. Beca DAAD (B005)
+     Pais: Alemania | Monto: $15,000
+     Puntaje: 10.2/100
+     Criterios: Carrera no coincide, País no coincide, Cierre próximo (+10.2pts)
+     Fecha cierre: 7/15/2025 | Carta: No
+
+  3. Beca Erasmus Mundus (B002)
+     Pais: Alemania | Monto: $18,000
+     Puntaje: 0/100
+     Criterios: Carrera no coincide, País no coincide, Cierre no próximo
+     Fecha cierre: 9/30/2025 | Carta: Si
+
+
+Estudiante: Pedro Ruiz (ID: E004)
+  Carrera: Ingeniería Industrial
+  GPA: 3.1
+  Pais de interes: Japón
+  Situacion economica: baja
+
+  1. Beca DAAD (B005)
+     Pais: Alemania | Monto: $15,000
+     Puntaje: 70.2/100
+     Criterios: Carrera exacta, País no coincide, Cierre próximo (+10.2pts)
+     Fecha cierre: 7/15/2025 | Carta: No
+
+  2. Beca Santander Global (B007)
+     Pais: España | Monto: $10,000
+     Puntaje: 60/100
+     Criterios: Carrera exacta, País no coincide, Cierre no próximo
+     Fecha cierre: 10/15/2025 | Carta: No
+
+
+Estudiante: Carlos López (ID: E002)
+  Carrera: Administración de Empresas
+  GPA: 3.5
+  Pais de interes: Reino Unido
+  Situacion economica: media
+
+  1. Beca Erasmus Mundus (B002)
+     Pais: Alemania | Monto: $18,000
+     Puntaje: 60/100
+     Criterios: Carrera exacta, País no coincide, Cierre no próximo
+     Fecha cierre: 9/30/2025 | Carta: Si
+
+  2. Beca Santander Global (B007)
+     Pais: España | Monto: $10,000
+     Puntaje: 60/100
+     Criterios: Carrera exacta, País no coincide, Cierre no próximo
+     Fecha cierre: 10/15/2025 | Carta: No
+
+  3. Beca DAAD (B005)
+     Pais: Alemania | Monto: $15,000
+     Puntaje: 10.2/100
+     Criterios: Carrera no coincide, País no coincide, Cierre próximo (+10.2pts)
+     Fecha cierre: 7/15/2025 | Carta: No
+
+
+Estudiante: Laura Sánchez (ID: E005)
+  Carrera: Derecho
+  GPA: 3.6
+  Pais de interes: Estados Unidos
+  Situacion economica: alta
+
+  1. Beca DAAD (B005)
+     Pais: Alemania | Monto: $15,000
+     Puntaje: 10.2/100
+     Criterios: Carrera no coincide, País no coincide, Cierre próximo (+10.2pts)
+     Fecha cierre: 7/15/2025 | Carta: No
+
+  2. Beca Huawei Seeds for the Future (B008)
+     Pais: China | Monto: $22,000
+     Puntaje: 0/100
+     Criterios: Carrera no coincide, País no coincide, Cierre no próximo
+     Fecha cierre: 12/31/2025 | Carta: Si
+
+======================================================================
+Fin del reporte - BecaMatch AI
