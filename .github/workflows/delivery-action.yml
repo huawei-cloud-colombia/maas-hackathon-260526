@@ -1,0 +1,35 @@
+name: Validate Deadline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-deadline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date and time in Bogotá
+        id: time
+        run: |
+          echo "current_date=$(TZ=America/Bogota date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          echo "current_time=$(TZ=America/Bogota date +%H:%M)" >> $GITHUB_OUTPUT
+
+      - name: Validate PR deadline
+        run: |
+          deadline_date="2026-05-26"
+          deadline_time="11:20"
+
+          echo "Hora actual del envío: $CURRENT_DATE $CURRENT_TIME"
+          echo "Fecha límite: $deadline_date $deadline_time"
+
+          if [[ "$CURRENT_DATE" > "$deadline_date" ]] || \
+             ([[ "$CURRENT_DATE" == "$deadline_date" ]] && [[ "$CURRENT_TIME" > "$deadline_time" ]]); then
+            echo "❌ Envío rechazado. La fecha límite para el Hackatón expiró el 26 de mayo de 2026 a las 11:20 AM (Hora Bogotá)."
+            exit 1
+          else
+            echo "✅ Envío a tiempo. ¡El Pull Request cumple con el horario!"
+          fi
+        env:
+          CURRENT_DATE: ${{ steps.time.outputs.current_date }}
+          CURRENT_TIME: ${{ steps.time.outputs.current_time }}
