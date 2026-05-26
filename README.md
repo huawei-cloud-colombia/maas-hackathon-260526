@@ -1,25 +1,28 @@
 # maas-hackathon-260526
-Repositorio oficial para recopilar las soluciones y retos de los participantes del Hackatón Huawei Colombia MaaS *Nivel avanzado e intermedio* — 26 de Mayo, 2026.
 
-# 🚀 Guía de Entrega de Retos
-
-Para mantener el repositorio organizado y facilitar la evaluación de los proyectos, todos los participantes deben seguir los siguientes pasos para subir sus soluciones.
+Repositorio oficial para recopilar las soluciones y retos desarrollados por los participantes del Hackatón Huawei Colombia MaaS — niveles avanzado e intermedio — realizado el 26 de mayo de 2026.
 
 ---
 
-# ⏰ Fecha límite de entrega
+# Guía de Entrega de Retos
 
-> ⚠️ **IMPORTANTE:**  
+Con el objetivo de mantener el repositorio organizado y facilitar el proceso de revisión y evaluación, todos los participantes deben seguir cuidadosamente las siguientes instrucciones para realizar la entrega de sus soluciones.
+
+---
+
+# Fecha límite de entrega
+
+> **IMPORTANTE**  
 > Las soluciones podrán enviarse únicamente hasta las **11:20 AM del día 26 de mayo de 2026**.  
-> Después de esa hora, **no se permitirán más submits ni pushes al repositorio**.
+> Después de esa hora, **no se permitirán más commits, pushes ni Pull Requests al repositorio**.
 
-Se recomienda realizar la entrega con anticipación para evitar inconvenientes de última hora.
+Se recomienda realizar la entrega con anticipación para evitar inconvenientes técnicos de última hora.
 
 ---
 
 ## 1. Clonar el repositorio
 
-Si aún no lo has hecho, clona este repositorio en tu máquina local:
+Clona el repositorio oficial en tu máquina local:
 
 ```bash
 git clone https://github.com/hwcc2025-rgb/maas-hackathon-260526.git
@@ -30,7 +33,7 @@ cd maas-hackathon-260526
 
 ## 2. Crear una rama propia
 
-Antes de realizar cualquier cambio, crea una rama independiente utilizando tu primer nombre y primer apellido en minúsculas, separados por un guion y sin caracteres especiales (sin tildes ni `ñ`).
+Antes de realizar cualquier modificación, crea una rama independiente utilizando tu primer nombre y primer apellido en minúsculas, separados por un guion (`-`) y sin caracteres especiales (sin tildes ni `ñ`).
 
 ### Ejemplo
 
@@ -46,36 +49,38 @@ git checkout -b tu-nombre-apellido
 
 ---
 
-## 3. Estructura del proyecto
+## 3. Crear la estructura del proyecto
 
-Dentro de tu rama, debes crear una carpeta en la raíz del repositorio con el mismo nombre de tu rama.
+Dentro de tu rama, debes crear una carpeta en la raíz del repositorio utilizando exactamente el mismo nombre de tu rama.
 
-La estructura interna debe verse de la siguiente manera:
+La estructura del proyecto debe verse de la siguiente manera:
 
 ```text
 📂 tu-nombre-apellido/
-├── 📄 README.md              # Instrucciones claras de cómo ejecutar tu proyecto
-├── 📄 requerimientos.txt     # Dependencias y librerías del proyecto
+├── 📄 README.md              # Instrucciones claras para ejecutar el proyecto
+├── 📄 requerimientos.txt     # Dependencias y librerías necesarias
 ├── 📄 prompt_usado.txt       # Prompts utilizados en Huawei MaaS
 ├── 📄 reporte_becas.txt      # Reporte con las 3 becas más afines por estudiante
-└── 📂 codigo/                # Carpeta o archivos con el código fuente del desarrollo
+└── 📂 codigo/                # Código fuente del desarrollo
 ```
-
-### Detalle de los archivos requeridos
-
-| Archivo              | Descripción                                                                                       |
-| -------------------- | ------------------------------------------------------------------------------------------------- |
-| `README.md`          | Explica claramente cómo instalar y ejecutar tu proyecto.                                          |
-| `requerimientos.txt` | Lista de dependencias necesarias para correr el proyecto.                                         |
-| `prompt_usado.txt`   | Incluye los prompts utilizados en Huawei MaaS.                                                    |
-| `reporte_becas.txt`  | Reporte con las 3 becas más afines por estudiante. Puede entregarse también en `.docx` o `.pptx`. |
-| `codigo/`            | Contiene el código fuente completo del proyecto.                                                  |
 
 ---
 
-## 4. Subir los cambios a GitHub
+## Archivos requeridos
 
-Una vez tengas lista tu estructura y archivos, guarda los cambios, realiza el commit y sube únicamente tu rama al repositorio remoto.
+| Archivo | Descripción |
+|---|---|
+| `README.md` | Explica claramente cómo instalar, configurar y ejecutar el proyecto. |
+| `requerimientos.txt` | Lista de dependencias necesarias para ejecutar la solución. |
+| `prompt_usado.txt` | Debe incluir los prompts utilizados durante el desarrollo en Huawei MaaS. |
+| `reporte_becas.txt` | Reporte con las 3 becas más afines para cada estudiante. También puede entregarse en formato `.docx` o `.pptx`. |
+| `codigo/` | Carpeta que contiene el código fuente completo del proyecto. |
+
+---
+
+## 4. Guardar y subir los cambios
+
+Una vez tengas lista tu estructura y archivos, guarda los cambios, crea un commit y sube únicamente tu rama al repositorio remoto.
 
 ```bash
 git add tu-nombre-apellido/
@@ -85,7 +90,25 @@ git push origin tu-nombre-apellido
 
 ---
 
-# ⚠️ Notas importantes
+## 5. Crear el Pull Request
+
+Después de subir tu rama, debes crear un **Pull Request (PR)** hacia la rama principal del repositorio.
+
+> **IMPORTANTE:**  
+> La entrega únicamente será considerada válida si el Pull Request fue creado correctamente antes de la hora límite establecida.
+
+### Pasos para crear el Pull Request
+
+1. Ingresa al repositorio en GitHub.
+2. Dirígete a la pestaña **Pull Requests**.
+3. Haz clic en **New Pull Request**.
+4. Selecciona tu rama como origen.
+5. Verifica que el destino sea la rama principal (`main`).
+6. Crea el Pull Request con tu nombre completo.
+
+---
+
+# Notas importantes
 
 ## Seguridad
 
@@ -95,15 +118,15 @@ Está estrictamente prohibido subir:
 - Credenciales
 - Tokens
 - Claves privadas
-- Datos sensibles
+- Información sensible o confidencial
 
-Asegúrate de agregar estos archivos al `.gitignore`.
+Asegúrate de incluir estos archivos y directorios en tu `.gitignore`.
 
 ---
 
 ## Formato del reporte
 
-El reporte de las 3 becas más afines para cada estudiante puede entregarse en cualquiera de estos formatos:
+El reporte de las 3 becas más afines puede entregarse en cualquiera de los siguientes formatos:
 
 - `.txt`
 - `.docx`
@@ -111,9 +134,9 @@ El reporte de las 3 becas más afines para cada estudiante puede entregarse en c
 
 ---
 
-# 💡 Recomendación: agregar un `.gitignore`
+# Recomendación: crear un `.gitignore`
 
-Se recomienda crear un archivo `.gitignore` desde el inicio para evitar subir archivos innecesarios o información sensible.
+Se recomienda crear un archivo `.gitignore` desde el inicio del desarrollo para evitar subir archivos innecesarios o sensibles.
 
 ## Ejemplo básico de `.gitignore`
 
@@ -135,7 +158,7 @@ __pycache__/
 
 ---
 
-# ✅ Resumen rápido del flujo de trabajo
+# Resumen rápido del flujo de trabajo
 
 ```bash
 # 1. Clonar repositorio
@@ -158,6 +181,10 @@ git commit -m "feat: entrega de reto de Tu Nombre"
 
 # 7. Subir rama
 git push origin tu-nombre-apellido
+
+# 8. Crear Pull Request en GitHub
 ```
 
 ---
+
+Muchas gracias por participar y ¡éxitos en el desarrollo del reto!
