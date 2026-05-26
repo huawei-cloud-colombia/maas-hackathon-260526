@@ -1,0 +1,22 @@
+# Prompts utilizados en Huawei MaaS
+
+## Prompt 1: Análisis inicial
+
+Analiza la siguiente solicitud de API y genera una solución optimizada que utilice los servicios de Huawei MaaS.
+
+Requisitos:
+- Maximizar el uso de APIs disponibles
+- Optimizar costos de procesamiento
+- Implementar manejo robusto de errores
+
+## Prompt 2: Generación de código
+
+Genera código Python que implemente la solución propuesta siguiendo mejores prácticas de desarrollo.
+
+## Prompt 3: Documentación
+
+Documenta el código generado explicando cada función y módulo de forma clara.
+
+---
+
+Fecha de desarrollo: 26 de mayo de 2026

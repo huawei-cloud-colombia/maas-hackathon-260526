@@ -1,0 +1,39 @@
+# Reporte de Becas - Hackatón Huawei Colombia MaaS
+
+## Fecha: 26 de mayo de 2026
+
+### Participante: Andres Sierra
+
+#### Top 3 Becas Más Afines
+
+**1. Beca Huawei Cloud Computing**
+   - Descripción: Beca completa para especialización en servicios cloud de Huawei
+   - Duración: 12 meses
+   - Beneficios: Acceso a plataformas premium, mentoría directa, certificación oficial
+   - Compatibilidad: Muy Alta (Requisitos técnicos cumplidos)
+
+**2. Beca de Desarrollo de IA y Machine Learning**
+   - Descripción: Programa de especialización en IA/ML con enfoque en aplicaciones empresariales
+   - Duración: 9 meses
+   - Beneficios: Laboratorios virtuales, cursos avanzados, proyecto final patrocinado
+   - Compatibilidad: Alta (Demostró interés en soluciones tecnológicas avanzadas)
+
+**3. Beca de Liderazgo Técnico**
+   - Descripción: Programa para desarrollar habilidades de liderazgo en equipos de tecnología
+   - Duración: 6 meses
+   - Beneficios: Coaching ejecutivo, red de contactos con líderes de industria, bolsa económica
+   - Compatibilidad: Alta (Potencial demostrado en el desarrollo del reto)
+
+---
+
+## Criterios de evaluación utilizados:
+
+- Desempeño técnico en el hackathon
+- Innovación en la solución propuesta
+- Conocimiento demostrado de plataformas cloud
+- Capacidad de trabajo en equipo
+- Potencial de crecimiento profesional
+
+---
+
+*Reporte generado automáticamente después del hackathon*
