@@ -25,7 +25,7 @@ Se recomienda realizar la entrega con anticipación para evitar inconvenientes t
 Clona el repositorio oficial en tu máquina local:
 
 ```bash
-git clone https://github.com/hwcc2025-rgb/maas-hackathon-260526.git
+git clone https://github.com/huawei-cloud-colombia/maas-hackathon-260526.git
 cd maas-hackathon-260526
 ```
 
@@ -162,7 +162,7 @@ __pycache__/
 
 ```bash
 # 1. Clonar repositorio
-git clone https://github.com/hwcc2025-rgb/maas-hackathon-260526.git
+git clone https://github.com/huawei-cloud-colombia/maas-hackathon-260526.git
 
 # 2. Entrar al proyecto
 cd maas-hackathon-260526
