@@ -1,0 +1,137 @@
+================================================================================
+  LEVANTAMIENTO DE REQUERIMIENTOS
+  Sistema de Recomendacion de Becas Personalizado para Universidades
+  Integrado con Deepseek v3.2 via MaaS Huawei Cloud
+================================================================================
+
+1. DESCRIPCION DEL PROBLEMA
+--------------------------------------------------------------------------------
+La Oficina de Relaciones Internacionales de una universidad recibe cientos de
+convocatorias de becas cada semestre. Los estudiantes no encuentran becas
+relevantes y pierden oportunidades. Se necesita un sistema que filtre y
+priorice becas segun el perfil del estudiante.
+
+2. FUENTES DE DATOS
+--------------------------------------------------------------------------------
+2.1 Archivo de becas (becas.csv):
+    - id_beca (entero): Identificador unico de la beca
+    - nombre_beca (string): Nombre de la beca
+    - pais (string): Pais donde se ofrece la beca
+    - monto (flotante): Monto de la beca en dolares
+    - carreras_aceptadas (string): Lista separada por comas de carreras
+    - gpa_minimo (flotante): GPA minimo requerido
+    - idioma_requerido (string): Idioma y nivel requerido
+    - fecha_cierre (fecha ISO): Fecha limite de aplicacion
+    - requiere_carta (string Si/No): Si requiere carta de recomendacion
+    - situacion_ec (string): Filtro de situacion economica (o vacio)
+
+2.2 Archivo de estudiantes (estudiantes.csv):
+    - id_estudiante (entero): Identificador unico del estudiante
+    - nombre (string): Nombre completo del estudiante
+    - carrera (string): Carrera que estudia
+    - gpa (flotante): Promedio acumulado
+    - idiomas (string): Lista de idiomas y niveles
+    - pais_interes (string): Paises de interes separados por comas
+    - situacion_economica (string): Situacion economica del estudiante
+    - email (string): Correo electronico
+
+3. CRITERIOS DE COINCIDENCIA
+--------------------------------------------------------------------------------
+3.1 Coincidencia de carrera (PESO: 30/20/15 pts):
+    - Exacta: La carrera del estudiante coincide exactamente con una carrera
+      aceptada por la beca (+30 pts)
+    - Afin: La carrera del estudiante es academicamente relacionada con una
+      carrera aceptada (+20 pts). Se usa un mapa de afinidad predefinido
+      y coincidencia parcial (ej: "Ingenieria" en "Ingenieria Informatica")
+    - Todas las carreras: La beca acepta cualquier carrera (+15 pts)
+    - Sin coincidencia: No es elegible (0 pts, descartada)
+
+3.2 GPA (PESO: 25 pts):
+    - El GPA del estudiante debe ser mayor o igual al minimo exigido
+    - Si no cumple, la beca no es elegible
+
+3.3 Idioma (PESO: 20/10 pts):
+    - Completo: El estudiante cumple todos los idiomas requeridos con nivel
+      suficiente (+20 pts)
+    - Parcial: Cumple al menos un idioma requerido (+10 pts)
+    - No cumple: No tiene ningun idioma requerido (0 pts)
+    - Se usa jerarquia de niveles: A1 < A2 < B1 < B2 < C1 < C2
+    - Para japones JLPT: N5 < N4 < N3 < N2 < N1
+
+3.4 Pais de interes (PESO: 15 pts):
+    - Si el pais de la beca esta en la lista de paises de interes del
+      estudiante, suma +15 pts
+
+3.5 Situacion economica (PESO: 10/5 pts):
+    - Coincide: La situacion economica del estudiante coincide con el filtro
+      de la beca (+10 pts)
+    - Beca abierta: La beca no filtra por situacion economica (+5 pts)
+    - No coincide: 0 pts
+
+3.6 Prioridad por fecha de cierre:
+    - Las becas se ordenan primero por puntuacion (descendente)
+    - En caso de empate, las becas que cierran primero aparecen primero
+
+4. PUNTUACION MAXIMA
+--------------------------------------------------------------------------------
+La puntuacion maxima posible es 100 pts:
+  Carrera exacta (30) + GPA cumple (25) + Idioma completo (20) +
+  Pais de interes (15) + Sit. economica coincide (10) = 100
+
+5. REGLAS DE ELEGIBILIDAD
+--------------------------------------------------------------------------------
+Una beca NO es elegible si:
+  - No hay coincidencia de carrera (ni exacta, ni afin, ni "todas")
+  - El GPA del estudiante es menor al minimo requerido
+
+6. INTEGRACION CON DEEPSEEK V3.2 (MaaS HUAWEI CLOUD)
+--------------------------------------------------------------------------------
+6.1 El sistema integra el modelo Deepseek v3.2 via la API de MaaS de Huawei
+    Cloud para enriquecer las recomendaciones con IA.
+
+6.2 Funcionalidades potenciadas por IA:
+    - Generacion de explicaciones personalizadas de por que cada beca es
+      recomendada para el estudiante
+    - Resumen personalizado del perfil del estudiante y sus oportunidades
+    - Analisis inteligente de afinidad entre carreras
+
+6.3 Configuracion de MaaS:
+    - API URL: https://api-ap-southeast-1.modelarts-maas.com/openai/v1
+    - Modelo: deepseek-v3.2
+    - Formato: OpenAI-compatible chat completions
+    - Fallback: Si MaaS no esta disponible, el sistema funciona normalmente
+      sin las explicaciones de IA
+
+7. ENTREGABLES
+--------------------------------------------------------------------------------
+7.1 requerimientos.txt - Este documento de levantamiento de requerimientos
+7.2 prompt_usado.txt - Prompt utilizado para el desarrollo con GLM 5.1
+7.3 recomendador_becas.py - Codigo principal del sistema de recomendacion
+7.4 maas_client.py - Cliente de integracion con MaaS (Deepseek v3.2)
+7.5 reporte_recomendaciones.txt - Reporte generado con las 3 becas mas afines
+7.6 becas.csv - Archivo de datos de convocatorias de becas
+7.7 estudiantes.csv - Archivo de datos de estudiantes
+
+8. CASOS ESPECIALES Y VALIDACIONES
+--------------------------------------------------------------------------------
+8.1 Estudiante sin becas elegibles: Se indica en el reporte que no se
+    encontraron becas elegibles
+8.2 Beca sin filtro de situacion economica: Se considera abierta a todos
+    los estudiantes (+5 pts)
+8.3 Beca que acepta "Todas las carreras": Se otorgan +15 pts
+8.4 Idioma sin nivel parseable (ej: "Espanol"): Se verifica solo la presencia
+    del idioma en el perfil del estudiante
+8.5 Fecha de cierre no parseable: Se coloca al final del ordenamiento
+8.6 MaaS no disponible: El sistema funciona en modo fallback sin IA
+
+9. FORMATO DE SALIDA
+--------------------------------------------------------------------------------
+9.1 Reporte en formato .txt con estructura clara:
+    - Encabezado con fecha de generacion
+    - Por estudiante: datos del perfil + resumen IA + top 3 becas
+    - Por beca: datos completos + puntuacion + desglose + explicacion IA
+    - Pie de reporte
+
+================================================================================
+  FIN DEL LEVANTAMIENTO DE REQUERIMIENTOS
+================================================================================

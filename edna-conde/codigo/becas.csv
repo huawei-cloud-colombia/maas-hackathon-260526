@@ -1,0 +1,16 @@
+id_beca,nombre_beca,pais,monto,carreras_aceptadas,gpa_minimo,idioma_requerido,fecha_cierre,requiere_carta,situacion_ec
+101,Beca Fulbright Maestria,Estados Unidos,35000,"Ingenieria, Ciencias de la Computacion, Matematicas",3.5,Ingles C1,2025-06-30,Si,A
+102,Erasmus+ Europa,Alemania,12000,Medicina,3.0,"Ingles B2, Aleman A2",2025-05-15,No,
+103,Beca CONACYT,Mexico,8000,Todas las carreras,2.8,Espanol,2025-07-01,Si,B
+104,Beca MEXT Japon,Japon,20000,"Ingenieria, Robotica",3.2,"Ingles B1, Japones N3",2025-04-30,Si,
+105,Beca Chevening,Reino Unido,40000,Todas las carreras,3.7,Ingles C1,2025-11-01,Si,C
+106,Beca DAAD,Alemania,25000,"Ingenieria, Ciencias Exactas",3.4,"Ingles B2, Aleman B1",2025-09-15,No,
+107,Beca Fundacion Carolina,Espana,15000,Todas las carreras,3.0,Espanol,2025-10-01,No,D
+108,Beca Eiffel,Francia,18000,"Ingenieria, Economia",3.3,"Frances B2, Ingles B1",2025-08-31,Si,
+109,Beca Santander Iberoamerica,Espana,10000,Todas las carreras,2.5,Espanol,2025-12-15,No,B
+110,Beca VLIR-UOS,Belgica,22000,"Desarrollo, Ciencias Sociales",3.0,"Ingles B2, Neerlandes A2",2025-09-30,No,C
+111,Beca OAS,Estados Unidos,18000,"Arquitectura, Urbanismo",3.1,Ingles B2,2025-07-15,Si,A
+112,Beca JASSO,Japon,10000,Todas las carreras,2.8,"Japones N5, Ingles A2",2025-05-01,No,
+113,Beca CONICYT,Chile,14000,"Ciencias, Ingenieria",3.2,Espanol,2025-06-15,No,
+114,Beca Colfuturo,Colombia,30000,Todas las carreras,3.5,"Ingles B2, Espanol",2025-08-01,Si,
+115,Beca Erasmus Mundus,Europa,45000,Todas las carreras,3.8,Ingles C1,2025-04-01,Si,D

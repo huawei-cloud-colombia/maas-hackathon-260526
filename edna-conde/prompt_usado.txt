@@ -1,0 +1,99 @@
+================================================================================
+  PROMPT UTILIZADO PARA DESARROLLO CON GLM 5.1 / Deepseek v3.2
+  Sistema de Recomendacion de Becas Personalizado
+================================================================================
+
+PROMPT PRINCIPAL:
+--------------------------------------------------------------------------------
+
+Desarrolla un sistema de recomendacion de becas personalizado para universidades en Python que cumpla los siguientes requisitos:
+
+DATOS DE ENTRADA:
+1. Archivo CSV de convocatorias de becas (becas.csv) con campos:
+   - id_beca (entero), nombre_beca (string), pais (string), monto (flotante),
+   - carreras_aceptadas (string separado por comas), gpa_minimo (flotante),
+   - idioma_requerido (string), fecha_cierre (fecha ISO YYYY-MM-DD),
+   - requiere_carta (Si/No), situacion_ec (string o vacio)
+
+2. Archivo CSV de estudiantes (estudiantes.csv) con campos:
+   - id_estudiante (entero), nombre (string), carrera (string), gpa (flotante),
+   - idiomas (string separado por comas), pais_interes (string separado por comas),
+   - situacion_economica (string), email (string)
+
+CRITERIOS DE COINCIDENCIA Y PUNTUACION:
+1. Coincidencia de carrera:
+   - Exacta: +30 puntos si la carrera del estudiante coincide exactamente
+   - Afin: +20 puntos si la carrera es academicamente relacionada (usar mapa de afinidad)
+   - Todas las carreras: +15 puntos si la beca acepta cualquier carrera
+   - Sin coincidencia: 0 puntos, la beca NO es elegible
+
+2. GPA: +25 puntos si el GPA del estudiante es mayor o igual al minimo exigido.
+   Si no cumple, la beca NO es elegible.
+
+3. Idioma:
+   - Completo: +20 puntos si cumple todos los idiomas requeridos con nivel suficiente
+   - Parcial: +10 puntos si cumple al menos un idioma requerido
+   - No cumple: 0 puntos
+   - Usar jerarquia: A1 < A2 < B1 < B2 < C1 < C2 y N5 < N4 < N3 < N2 < N1 (JLPT)
+
+4. Pais de interes: +15 puntos si el pais de la beca esta en los intereses del estudiante
+
+5. Situacion economica:
+   - Coincide: +10 puntos si la situacion economica del estudiante coincide con el filtro de la beca
+   - Beca abierta (sin filtro): +5 puntos
+   - No coincide: 0 puntos
+
+6. Prioridad por fecha de cierre: Las becas que cierran pronto deben aparecer primero.
+   Ordenar por puntuacion descendente, luego por fecha de cierre ascendente.
+
+REGLAS DE ELEGIBILIDAD:
+- Una beca NO es elegible si no hay coincidencia de carrera
+- Una beca NO es elegible si el GPA es menor al requerido
+
+SALIDA:
+- Generar un reporte en formato .txt con las 3 becas mas afines para cada estudiante
+- Incluir puntuacion total y desglose por criterio
+- Manejar caso de estudiante sin becas elegibles
+
+INTEGRACION CON MaaS (Deepseek v3.2):
+- Integrar el modelo Deepseek v3.2 via API MaaS de Huawei Cloud
+- API URL: https://api-ap-southeast-1.modelarts-maas.com/openai/v1
+- Formato: OpenAI-compatible chat completions
+- Usar Deepseek para:
+  1. Generar explicaciones personalizadas de cada recomendacion
+  2. Generar resumen del perfil del estudiante y sus oportunidades
+- Si MaaS no esta disponible, funcionar en modo fallback sin IA
+
+CASOS ESPECIALES:
+- Beca sin filtro de situacion economica: considerar abierta (+5 pts)
+- Idioma sin nivel parseable: verificar solo presencia del idioma
+- Fecha no parseable: colocar al final del ordenamiento
+
+--------------------------------------------------------------------------------
+
+PROMPT PARA DEEPSEEK V3.2 (Generacion de explicaciones):
+--------------------------------------------------------------------------------
+
+Eres un asesor academico experto en becas internacionales. Genera una explicacion
+breve y personalizada (maximo 3 lineas) de por que esta beca es recomendada para
+el estudiante, destacando los puntos fuertes de la coincidencia.
+
+[Se incluyen datos del estudiante, datos de la beca, puntuacion y desglose]
+
+Genera la explicacion en espanol, de forma directa y motivante para el estudiante.
+
+--------------------------------------------------------------------------------
+
+PROMPT PARA DEEPSEEK V3.2 (Resumen del estudiante):
+--------------------------------------------------------------------------------
+
+Genera un resumen breve (maximo 4 lineas) para el estudiante sobre sus mejores
+oportunidades de becas. Se motivante pero realista.
+
+[Se incluyen datos del estudiante y top 3 becas recomendadas]
+
+Genera el resumen en espanol, directo y util para el estudiante.
+
+================================================================================
+  FIN DEL PROMPT
+================================================================================
