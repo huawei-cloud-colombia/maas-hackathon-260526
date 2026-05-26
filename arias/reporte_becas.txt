@@ -1,0 +1,504 @@
+==============================================================================
+REPORTE DE BECAS RECOMENDADAS
+Universidad Nova Andes — Oficina de Relaciones Internacionales
+Sistema de recomendación personalizada — Huawei MaaS Hackathon 2026
+Fecha de ejecución: 2026-05-26
+Total estudiantes analizados: 10
+Total becas consideradas: 15
+==============================================================================
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Ana Lopez   (ID 1001)
+  Carrera: Ingenieria Informatica   GPA: 3.7   Situación EC: A
+  Idiomas: Ingles C1, Frances A2
+  Países de interés: Estados Unidos, Canada
+  Email: ana.lopez@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Fulbright Maestria  ·  Estados Unidos  ·  USD 35000
+     Cierre: 2025-06-30   GPA mín: 3.5   Idioma: Ingles C1
+     Score interno: 89.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.7 cumple el mínimo de 3.5
+        - País destino (Estados Unidos) está en tus intereses
+        - Tu carrera (Ingenieria Informatica) está dentro del área aceptada
+        - Cumples todos los idiomas requeridos (Ingles C1)
+        - Tu situación económica (A) coincide con el perfil de la beca
+     Advertencias:
+        ! Convocatoria cerrada el 2025-06-30
+     Recomendación del asesor IA: Tu perfil cumple con todos los requisitos académicos, de idioma y área, pero la convocatoria cerró el 30 de junio de 2025, por lo que ya no puedes postularte. Te recomendamos considerar otras becas con plazos abiertos o esperar la próxima edición de Fulbright.
+     Siguiente paso: Revisa en la página oficial de Fulbright si hay plazos extendidos o nuevas convocatorias para maestrías en Estados Unidos.
+
+  2. Beca OAS  ·  Estados Unidos  ·  USD 18000
+     Cierre: 2025-07-15   GPA mín: 3.1   Idioma: Ingles B2
+     Score interno: 69.6   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.7 cumple el mínimo de 3.1
+        - País destino (Estados Unidos) está en tus intereses
+        - Cumples todos los idiomas requeridos (Ingles B2)
+        - Tu situación económica (A) coincide con el perfil de la beca
+     Advertencias:
+        ! Carrera Ingenieria Informatica no encaja con Arquitectura, Urbanismo
+        ! Convocatoria cerrada el 2025-07-15
+     Recomendación del asesor IA: Aunque cumples con el GPA, idiomas y situación económica, tu carrera de Ingeniería Informática no está entre las aceptadas (Arquitectura, Urbanismo) y la convocatoria cerró el 2025-07-15. Por eso el ajuste es bajo.
+     Siguiente paso: Te recomendamos buscar becas abiertas en Estados Unidos y Canadá para Ingeniería Informática, como las ofrecidas por fundaciones tecnológicas o universidades, y preparar tu carta de motivación.
+
+  3. Beca Chevening  ·  Reino Unido  ·  USD 40000
+     Cierre: 2025-11-01   GPA mín: 3.7   Idioma: Ingles C1
+     Score interno: 53.0   Fit LLM: 30 / 100
+     Por qué te encaja:
+        - GPA 3.7 cumple el mínimo de 3.7
+        - Beca abierta a todas las carreras
+        - Cumples todos los idiomas requeridos (Ingles C1)
+     Advertencias:
+        ! País Reino Unido fuera de tus intereses (Estados Unidos, Canada)
+        ! La beca está dirigida a situación C, tu perfil es A
+        ! Convocatoria cerrada el 2025-11-01
+     Recomendación del asesor IA: Cumples con los requisitos de GPA, idioma y carrera, pero la beca Chevening es para estudiar en Reino Unido y está dirigida a un perfil económico distinto al tuyo. Además, la convocatoria ya cerró, por lo que no es una opción viable en este momento.
+     Siguiente paso: Te recomendamos buscar becas en Estados Unidos o Canadá que se ajusten a tu perfil académico y situación económica, como la Beca Fulbright o programas de gobierno canadiense.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Carlos Ruiz   (ID 1002)
+  Carrera: Medicina   GPA: 3.2   Situación EC: B
+  Idiomas: Ingles B2, Aleman A1
+  Países de interés: Alemania
+  Email: carlos.ruiz@universidad.edu
+
+  Top 3 becas más afines:
+  1. Erasmus+ Europa  ·  Alemania  ·  USD 12000
+     Cierre: 2025-05-15   GPA mín: 3.0   Idioma: Ingles B2, Aleman A2
+     Score interno: 59.4   Fit LLM: - / 100
+     Por qué te encaja:
+        - GPA 3.2 cumple el mínimo de 3.0
+        - País destino (Alemania) está en tus intereses
+        - Tu carrera (Medicina) está dentro del área aceptada
+        - La beca no restringe por situación económica
+     Advertencias:
+        ! Te faltan idiomas: Aleman A2
+        ! Convocatoria cerrada el 2025-05-15
+     Recomendación del asesor IA: (LLM no disponible: 429 Client Error: Too Many Requests for url: https://api-ap-southeast-1.modelarts-maas.com/openai/v1/chat/completions)
+
+  2. Beca Santander Iberoamerica  ·  Espana  ·  USD 10000
+     Cierre: 2025-12-15   GPA mín: 2.5   Idioma: Espanol
+     Score interno: 44.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.2 cumple el mínimo de 2.5
+        - Beca abierta a todas las carreras
+        - Tu situación económica (B) coincide con el perfil de la beca
+     Advertencias:
+        ! País Espana fuera de tus intereses (Alemania)
+        ! Te faltan idiomas: Espanol
+        ! Convocatoria cerrada el 2025-12-15
+     Recomendación del asesor IA: Tu perfil cumple con los requisitos mínimos de GPA y la beca está abierta a tu carrera, pero hay desajustes importantes: tu país de interés (Alemania) no coincide con España, no cumples con el requisito de idioma español y la convocatoria ya cerró el 15 de diciembre de 2025. Te recomendamos explorar otras opciones que se alineen mejor con tu meta.
+     Siguiente paso: Revisa becas específicas para Alemania, como las del DAAD, y considera mejorar tu alemán e inglés para futuras oportunidades.
+
+  3. Beca CONACYT  ·  Mexico  ·  USD 8000
+     Cierre: 2025-07-01   GPA mín: 2.8   Idioma: Espanol
+     Score interno: 40.6   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.2 cumple el mínimo de 2.8
+        - Beca abierta a todas las carreras
+        - Tu situación económica (B) coincide con el perfil de la beca
+     Advertencias:
+        ! País Mexico fuera de tus intereses (Alemania)
+        ! Te faltan idiomas: Espanol
+        ! Convocatoria cerrada el 2025-07-01
+     Recomendación del asesor IA: La Beca CONACYT está dirigida a estudios en México, no en Alemania como prefieres, y exige dominio del español, idioma que no tienes registrado. Aunque cumples con el GPA y la carrera es aceptada, el desajuste de país y el requisito de idioma reducen significativamente la compatibilidad.
+     Siguiente paso: Te recomendamos buscar becas para Alemania, como las del DAAD, o valorar si estarías dispuesto a estudiar en México y aprender español antes de la convocatoria (cierre 01/07/2025).
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Maria Gomez   (ID 1003)
+  Carrera: Biologia   GPA: 2.9   Situación EC: D
+  Idiomas: Ingles B1
+  Países de interés: Espana
+  Email: maria.gomez@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Santander Iberoamerica  ·  Espana  ·  USD 10000
+     Cierre: 2025-12-15   GPA mín: 2.5   Idioma: Espanol
+     Score interno: 56.0   Fit LLM: 15 / 100
+     Por qué te encaja:
+        - GPA 2.9 cumple el mínimo de 2.5
+        - País destino (Espana) está en tus intereses
+        - Beca abierta a todas las carreras
+     Advertencias:
+        ! Te faltan idiomas: Espanol
+        ! La beca está dirigida a situación B, tu perfil es D
+        ! Convocatoria cerrada el 2025-12-15
+     Recomendación del asesor IA: Tu perfil coincide en GPA y país de interés, pero la beca exige español (tienes inglés B1) y está dirigida a situación económica B, mientras que la tuya es D. Además, la convocatoria cerró el 15 de diciembre de 2025, por lo que ya no está disponible.
+     Siguiente paso: Te recomendamos buscar otras becas para España que no requieran español, acepten situación D y estén abiertas, como la Beca de Excelencia del Ministerio de Educación español.
+
+  2. Beca Erasmus Mundus  ·  Europa  ·  USD 45000
+     Cierre: 2025-04-01   GPA mín: 3.8   Idioma: Ingles C1
+     Score interno: 48.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - País destino (Europa) está en tus intereses
+        - Beca abierta a todas las carreras
+        - Tu situación económica (D) coincide con el perfil de la beca
+     Advertencias:
+        ! GPA insuficiente (2.9 < 3.8)
+        ! Te faltan idiomas: Ingles C1
+        ! Convocatoria cerrada el 2025-04-01
+     Recomendación del asesor IA: Aunque la beca Erasmus Mundus cubre Europa y está abierta a tu carrera, tu GPA de 2.9 no alcanza el mínimo de 3.8 y tu nivel de inglés B1 está por debajo del C1 requerido. Además, la convocatoria ya cerró el 1 de abril de 2025, por lo que no puedes postularte.
+     Siguiente paso: Te recomendamos explorar becas del gobierno español o programas de movilidad para estudiantes de Biología con requisitos de GPA e idioma más accesibles, como las becas de la Fundación Carolina o las becas Santander.
+
+  3. Beca Fundacion Carolina  ·  Espana  ·  USD 15000
+     Cierre: 2025-10-01   GPA mín: 3.0   Idioma: Espanol
+     Score interno: 43.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - País destino (Espana) está en tus intereses
+        - Beca abierta a todas las carreras
+        - Tu situación económica (D) coincide con el perfil de la beca
+     Advertencias:
+        ! GPA insuficiente (2.9 < 3.0)
+        ! Te faltan idiomas: Espanol
+        ! Convocatoria cerrada el 2025-10-01
+     Recomendación del asesor IA: Aunque España es tu destino ideal y la beca acepta todas las carreras, tu GPA de 2.9 no alcanza el mínimo de 3.0 y no cumples con el requisito de idioma español. Además, la convocatoria ya cerró el 1 de octubre de 2025, por lo que no puedes postularte en este momento.
+     Siguiente paso: Te recomendamos enfocarte en elevar tu GPA a 3.0 o más y comenzar a estudiar español para alcanzar al menos un nivel B1, y estar atenta a la próxima apertura de la Beca Fundación Carolina en 2026.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Pedro Sanchez   (ID 1004)
+  Carrera: Robotica   GPA: 3.8   Situación EC: C
+  Idiomas: Ingles B1, Japones N4
+  Países de interés: Japon
+  Email: pedro.sanchez@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca JASSO  ·  Japon  ·  USD 10000
+     Cierre: 2025-05-01   GPA mín: 2.8   Idioma: Japones N5, Ingles A2
+     Score interno: 87.0   Fit LLM: 30 / 100
+     Por qué te encaja:
+        - GPA 3.8 cumple el mínimo de 2.8
+        - País destino (Japon) está en tus intereses
+        - Beca abierta a todas las carreras
+        - Cumples todos los idiomas requeridos (Japones N5, Ingles A2)
+        - La beca no restringe por situación económica
+     Advertencias:
+        ! Convocatoria cerrada el 2025-05-01
+     Recomendación del asesor IA: Tu perfil es muy sólido para la Beca JASSO: cumples con el GPA, los idiomas y la carrera, y tu interés en Japón es perfecto. Sin embargo, la convocatoria cerró el 1 de mayo de 2025, por lo que no es posible aplicar en este momento.
+     Siguiente paso: Te recomendamos verificar si la beca tendrá una nueva convocatoria en 2026 y, mientras tanto, explorar otras opciones como la beca MEXT o programas de intercambio con universidades japonesas.
+
+  2. Beca MEXT Japon  ·  Japon  ·  USD 20000
+     Cierre: 2025-04-30   GPA mín: 3.2   Idioma: Ingles B1, Japones N3
+     Score interno: 65.0   Fit LLM: - / 100
+     Por qué te encaja:
+        - GPA 3.8 cumple el mínimo de 3.2
+        - País destino (Japon) está en tus intereses
+        - Tu carrera (Robotica) está dentro del área aceptada
+        - La beca no restringe por situación económica
+     Advertencias:
+        ! Te faltan idiomas: Japones N3
+        ! Convocatoria cerrada el 2025-04-30
+     Recomendación del asesor IA: (LLM no disponible: 429 Client Error: Too Many Requests for url: https://api-ap-southeast-1.modelarts-maas.com/openai/v1/chat/completions)
+
+  3. Beca Chevening  ·  Reino Unido  ·  USD 40000
+     Cierre: 2025-11-01   GPA mín: 3.7   Idioma: Ingles C1
+     Score interno: 44.0   Fit LLM: 25 / 100
+     Por qué te encaja:
+        - GPA 3.8 cumple el mínimo de 3.7
+        - Beca abierta a todas las carreras
+        - Tu situación económica (C) coincide con el perfil de la beca
+     Advertencias:
+        ! País Reino Unido fuera de tus intereses (Japon)
+        ! Te faltan idiomas: Ingles C1
+        ! Convocatoria cerrada el 2025-11-01
+     Recomendación del asesor IA: Lamentablemente, la Beca Chevening no se alinea con tus intereses porque es para estudiar en Reino Unido y tú prefieres Japón. Además, requiere un nivel de inglés C1 (tienes B1) y la convocatoria ya cerró el 1 de noviembre de 2025. Aunque cumples con el GPA y la carrera, estas brechas hacen que sea una opción poco viable para ti.
+     Siguiente paso: Te recomendamos buscar becas específicas para Japón, como las ofrecidas por MEXT, y enfocarte en mejorar tu inglés y japonés para futuras oportunidades.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Laura Fernandez   (ID 1005)
+  Carrera: Ingenieria Civil   GPA: 3.0   Situación EC: D
+  Idiomas: Ingles B2
+  Países de interés: Mexico, Estados Unidos
+  Email: laura.fernandez@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca CONACYT  ·  Mexico  ·  USD 8000
+     Cierre: 2025-07-01   GPA mín: 2.8   Idioma: Espanol
+     Score interno: 53.6   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.0 cumple el mínimo de 2.8
+        - País destino (Mexico) está en tus intereses
+        - Beca abierta a todas las carreras
+     Advertencias:
+        ! Te faltan idiomas: Espanol
+        ! La beca está dirigida a situación B, tu perfil es D
+        ! Convocatoria cerrada el 2025-07-01
+     Recomendación del asesor IA: Aunque tu carrera y el país de destino coinciden, la convocatoria cerró el 2025-07-01 y ya no puedes aplicar. Además, la beca exige español y tu perfil económico (D) no se alinea con el requerido (B). Te recomendamos buscar becas con plazos abiertos y requisitos de idioma que ya cumplas.
+     Siguiente paso: Revisa el catálogo de becas con cierre posterior a hoy y filtra por situación económica B o sin requisito económico, y considera mejorar tu español para futuras oportunidades en México.
+
+  2. Beca Fundacion Carolina  ·  Espana  ·  USD 15000
+     Cierre: 2025-10-01   GPA mín: 3.0   Idioma: Espanol
+     Score interno: 38.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.0 cumple el mínimo de 3.0
+        - Beca abierta a todas las carreras
+        - Tu situación económica (D) coincide con el perfil de la beca
+     Advertencias:
+        ! País Espana fuera de tus intereses (Mexico, Estados Unidos)
+        ! Te faltan idiomas: Espanol
+        ! Convocatoria cerrada el 2025-10-01
+     Recomendación del asesor IA: Lamentablemente, la Beca Fundación Carolina no es una opción viable para ti, ya que la convocatoria cerró el 1 de octubre de 2025 y además exige dominio del español, idioma que no tienes registrado. Aunque tu promedio y situación económica coinciden con los requisitos, el país de destino (España) está fuera de tus intereses de México y Estados Unidos.
+     Siguiente paso: Te recomendamos buscar becas vigentes en México o Estados Unidos que se ajusten a tu perfil y nivel de inglés, o considerar mejorar tu español para futuras oportunidades en España.
+
+  3. Beca Fulbright Maestria  ·  Estados Unidos  ·  USD 35000
+     Cierre: 2025-06-30   GPA mín: 3.5   Idioma: Ingles C1
+     Score interno: 37.0   Fit LLM: 15 / 100
+     Por qué te encaja:
+        - País destino (Estados Unidos) está en tus intereses
+        - Tu carrera (Ingenieria Civil) está dentro del área aceptada
+     Advertencias:
+        ! GPA insuficiente (3.0 < 3.5)
+        ! Te faltan idiomas: Ingles C1
+        ! La beca está dirigida a situación A, tu perfil es D
+        ! Convocatoria cerrada el 2025-06-30
+     Recomendación del asesor IA: Aunque tu carrera de Ingeniería Civil y tu interés por Estados Unidos coinciden con la beca Fulbright Maestría, tu GPA de 3.0 está por debajo del mínimo requerido de 3.5 y tu nivel de inglés B2 no alcanza el C1 exigido. Además, la convocatoria cerró el 30 de junio de 2025, y tu situación económica D no se alinea con el perfil dirigido a estudiantes con beca A. Te recomendamos enfocarte en mejorar tu promedio académico y dominio del inglés para futuras oportunidades similares.
+     Siguiente paso: Inscríbete en un curso intensivo de inglés para alcanzar el nivel C1 y consulta con tu universidad sobre becas con requisitos más flexibles o con fechas vigentes.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Jorge Martinez   (ID 1006)
+  Carrera: Administracion de Empresas   GPA: 3.5   Situación EC: C
+  Idiomas: Ingles C1, Frances B1
+  Países de interés: Francia
+  Email: jorge.martinez@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Erasmus Mundus  ·  Europa  ·  USD 45000
+     Cierre: 2025-04-01   GPA mín: 3.8   Idioma: Ingles C1
+     Score interno: 58.0   Fit LLM: 15 / 100
+     Por qué te encaja:
+        - País destino (Europa) está en tus intereses
+        - Beca abierta a todas las carreras
+        - Cumples todos los idiomas requeridos (Ingles C1)
+     Advertencias:
+        ! GPA insuficiente (3.5 < 3.8)
+        ! La beca está dirigida a situación D, tu perfil es C
+        ! Convocatoria cerrada el 2025-04-01
+     Recomendación del asesor IA: Tu perfil tiene puntos en común como el idioma inglés y el interés por Europa, pero no cumples con el GPA mínimo de 3.8 ni con el perfil económico requerido (D vs C). Además, la convocatoria cerró el 1 de abril de 2025, por lo que no es posible postular.
+     Siguiente paso: Te recomendamos buscar otras becas dirigidas a Francia o Europa con requisitos más flexibles de GPA y situación económica, por ejemplo, la Beca Eiffel o programas de la Embajada de Francia.
+
+  2. Beca Fulbright Maestria  ·  Estados Unidos  ·  USD 35000
+     Cierre: 2025-06-30   GPA mín: 3.5   Idioma: Ingles C1
+     Score interno: 52.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.5 cumple el mínimo de 3.5
+        - Tu carrera (Administracion de Empresas) está dentro del área aceptada
+        - Cumples todos los idiomas requeridos (Ingles C1)
+     Advertencias:
+        ! País Estados Unidos fuera de tus intereses (Francia)
+        ! La beca está dirigida a situación A, tu perfil es C
+        ! Convocatoria cerrada el 2025-06-30
+     Recomendación del asesor IA: Aunque cumples con el GPA mínimo y el nivel de inglés requerido, esta beca está dirigida a estudios en Estados Unidos, no en Francia como prefieres, y está diseñada para una situación económica diferente a la tuya. Además, la convocatoria cerró el 30 de junio de 2025, por lo que ya no es posible postular.
+     Siguiente paso: Te recomendamos buscar becas en Francia que acepten tu perfil de Administración de Empresas y estén abiertas a tu situación económica, como las ofrecidas por Campus France o el gobierno francés.
+
+  3. Beca Chevening  ·  Reino Unido  ·  USD 40000
+     Cierre: 2025-11-01   GPA mín: 3.7   Idioma: Ingles C1
+     Score interno: 43.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - Beca abierta a todas las carreras
+        - Cumples todos los idiomas requeridos (Ingles C1)
+        - Tu situación económica (C) coincide con el perfil de la beca
+     Advertencias:
+        ! GPA insuficiente (3.5 < 3.7)
+        ! País Reino Unido fuera de tus intereses (Francia)
+        ! Convocatoria cerrada el 2025-11-01
+     Recomendación del asesor IA: Tu GPA de 3.5 está por debajo del mínimo requerido de 3.7, el programa es para Reino Unido, no Francia, y la convocatoria cerró el 2025-11-01. Aunque cumples con el idioma y tu situación económica es adecuada, las brechas principales hacen que esta beca no sea viable para ti.
+     Siguiente paso: Te recomendamos buscar becas orientadas a Francia, como las del gobierno francés o la Eiffel, que tengan requisitos de GPA más flexibles y plazos abiertos; revisa la página Campus France para opciones actuales.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Sofia Ramirez   (ID 1007)
+  Carrera: Arquitectura   GPA: 3.9   Situación EC: A
+  Idiomas: Ingles C2, Italiano B2
+  Países de interés: Italia, Espana
+  Email: sofia.ramirez@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Erasmus Mundus  ·  Europa  ·  USD 45000
+     Cierre: 2025-04-01   GPA mín: 3.8   Idioma: Ingles C1
+     Score interno: 79.0   Fit LLM: 15 / 100
+     Por qué te encaja:
+        - GPA 3.9 cumple el mínimo de 3.8
+        - País destino (Europa) está en tus intereses
+        - Beca abierta a todas las carreras
+        - Cumples todos los idiomas requeridos (Ingles C1)
+     Advertencias:
+        ! La beca está dirigida a situación D, tu perfil es A
+        ! Convocatoria cerrada el 2025-04-01
+     Recomendación del asesor IA: Aunque cumples con el GPA, idiomas y carrera, la convocatoria cerró el 1 de abril de 2025 y la beca está dirigida a una situación económica distinta a la tuya (D vs A), por lo que no es viable postularte. Te recomendamos buscar otras oportunidades vigentes que valoren tu excelente perfil académico y tus idiomas.
+     Siguiente paso: Consulta la página de tu oficina de relaciones internacionales para identificar becas abiertas que coincidan con tu carrera, países de interés y situación económica.
+
+  2. Beca OAS  ·  Estados Unidos  ·  USD 18000
+     Cierre: 2025-07-15   GPA mín: 3.1   Idioma: Ingles B2
+     Score interno: 66.6   Fit LLM: 25 / 100
+     Por qué te encaja:
+        - GPA 3.9 cumple el mínimo de 3.1
+        - Tu carrera (Arquitectura) está dentro del área aceptada
+        - Cumples todos los idiomas requeridos (Ingles B2)
+        - Tu situación económica (A) coincide con el perfil de la beca
+     Advertencias:
+        ! País Estados Unidos fuera de tus intereses (Italia, Espana)
+        ! Convocatoria cerrada el 2025-07-15
+     Recomendación del asesor IA: Tu perfil académico y económico es excelente para esta beca, pero el destino (Estados Unidos) no coincide con tus intereses en Italia y España. Además, la convocatoria cerró el 15 de julio de 2025, por lo que ya no está disponible.
+     Siguiente paso: Te recomendamos buscar becas en Italia o España que valoren tu alto GPA y nivel de italiano, como las ofrecidas por el gobierno italiano o la Fundación Carolina.
+
+  3. Beca Santander Iberoamerica  ·  Espana  ·  USD 10000
+     Cierre: 2025-12-15   GPA mín: 2.5   Idioma: Espanol
+     Score interno: 66.0   Fit LLM: - / 100
+     Por qué te encaja:
+        - GPA 3.9 cumple el mínimo de 2.5
+        - País destino (Espana) está en tus intereses
+        - Beca abierta a todas las carreras
+     Advertencias:
+        ! Te faltan idiomas: Espanol
+        ! La beca está dirigida a situación B, tu perfil es A
+        ! Convocatoria cerrada el 2025-12-15
+     Recomendación del asesor IA: (LLM no disponible: 429 Client Error: Too Many Requests for url: https://api-ap-southeast-1.modelarts-maas.com/openai/v1/chat/completions)
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Diego Torres   (ID 1008)
+  Carrera: Ciencias de la Computacion   GPA: 3.6   Situación EC: B
+  Idiomas: Ingles C1
+  Países de interés: Canada
+  Email: diego.torres@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Fulbright Maestria  ·  Estados Unidos  ·  USD 35000
+     Cierre: 2025-06-30   GPA mín: 3.5   Idioma: Ingles C1
+     Score interno: 53.0   Fit LLM: 60 / 100
+     Por qué te encaja:
+        - GPA 3.6 cumple el mínimo de 3.5
+        - Tu carrera (Ciencias de la Computacion) está dentro del área aceptada
+        - Cumples todos los idiomas requeridos (Ingles C1)
+     Advertencias:
+        ! País Estados Unidos fuera de tus intereses (Canada)
+        ! La beca está dirigida a situación A, tu perfil es B
+        ! Convocatoria cerrada el 2025-06-30
+     Recomendación del asesor IA: Diego, tu perfil académico cumple con los requisitos de GPA, carrera e idioma de la Beca Fulbright Maestría, pero está enfocada en Estados Unidos, no en Canadá, y está dirigida a estudiantes con situación económica A, mientras que la tuya es B. Te recomendamos evaluar si estás dispuesto a cambiar tu país de interés y considerar que tu perfil económico podría ser una limitante en el proceso de selección.
+     Siguiente paso: Te sugerimos contactar a la Oficina de Becas de tu universidad para explorar opciones de financiamiento en Canadá que se alineen mejor con tu perfil y situación económica.
+
+  2. Beca Santander Iberoamerica  ·  Espana  ·  USD 10000
+     Cierre: 2025-12-15   GPA mín: 2.5   Idioma: Espanol
+     Score interno: 48.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.6 cumple el mínimo de 2.5
+        - Beca abierta a todas las carreras
+        - Tu situación económica (B) coincide con el perfil de la beca
+     Advertencias:
+        ! País Espana fuera de tus intereses (Canada)
+        ! Te faltan idiomas: Espanol
+        ! Convocatoria cerrada el 2025-12-15
+     Recomendación del asesor IA: Aunque tu GPA y situación económica encajan bien con la beca, el país (España) no coincide con tu interés en Canadá, necesitas nivel de español y la convocatoria ya cerró el 2025-12-15. Por eso, te recomendamos explorar otras opciones que se ajusten mejor a tu perfil.
+     Siguiente paso: Busca becas específicas para Canadá como la Beca Vanier o el Programa de Becas de la Universidad de Toronto, y considera mejorar tu español para futuras oportunidades en España.
+
+  3. Beca CONACYT  ·  Mexico  ·  USD 8000
+     Cierre: 2025-07-01   GPA mín: 2.8   Idioma: Espanol
+     Score interno: 44.6   Fit LLM: 25 / 100
+     Por qué te encaja:
+        - GPA 3.6 cumple el mínimo de 2.8
+        - Beca abierta a todas las carreras
+        - Tu situación económica (B) coincide con el perfil de la beca
+     Advertencias:
+        ! País Mexico fuera de tus intereses (Canada)
+        ! Te faltan idiomas: Espanol
+        ! Convocatoria cerrada el 2025-07-01
+     Recomendación del asesor IA: Diego, tu GPA y situación económica son compatibles con la beca CONACYT, pero el país (México) no coincide con tu interés en Canadá y la beca requiere español, que no dominas. Por ello, no es la mejor opción para tu perfil.
+     Siguiente paso: Te recomendamos explorar becas canadienses como las del programa 'Study in Canada' o de universidades locales, donde tu inglés C1 será una ventaja.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Valentina Herrera   (ID 1009)
+  Carrera: Psicologia   GPA: 3.1   Situación EC: C
+  Idiomas: Ingles B1, Portugues A2
+  Países de interés: Brasil, Espana
+  Email: valentina.herrera@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Santander Iberoamerica  ·  Espana  ·  USD 10000
+     Cierre: 2025-12-15   GPA mín: 2.5   Idioma: Espanol
+     Score interno: 58.0   Fit LLM: 15 / 100
+     Por qué te encaja:
+        - GPA 3.1 cumple el mínimo de 2.5
+        - País destino (Espana) está en tus intereses
+        - Beca abierta a todas las carreras
+     Advertencias:
+        ! Te faltan idiomas: Espanol
+        ! La beca está dirigida a situación B, tu perfil es C
+        ! Convocatoria cerrada el 2025-12-15
+     Recomendación del asesor IA: Tu GPA cumple el mínimo y la carrera es aceptada, pero no cumples el requisito de idioma español (necesario para la beca) y tu situación económica es C mientras la beca exige perfil B. Además, la convocatoria cerró el 2025-12-15, por lo que no puedes postularte.
+     Siguiente paso: Te recomendamos buscar becas que no exijan español y estén abiertas a situación económica C, como la Beca Iberoamérica Estudiantes de Grado en Portugal o programas de intercambio en Brasil con requisitos de idioma portugués.
+
+  2. Beca Fundacion Carolina  ·  Espana  ·  USD 15000
+     Cierre: 2025-10-01   GPA mín: 3.0   Idioma: Espanol
+     Score interno: 54.0   Fit LLM: 20 / 100
+     Por qué te encaja:
+        - GPA 3.1 cumple el mínimo de 3.0
+        - País destino (Espana) está en tus intereses
+        - Beca abierta a todas las carreras
+     Advertencias:
+        ! Te faltan idiomas: Espanol
+        ! La beca está dirigida a situación D, tu perfil es C
+        ! Convocatoria cerrada el 2025-10-01
+     Recomendación del asesor IA: La Beca Fundación Carolina coincide con tu interés por España y tu GPA, pero no cumples con el idioma requerido (español), tu situación económica es C y la convocatoria ya cerró el 1 de octubre de 2025. Te recomendamos enfocarte en becas que acepten tu nivel actual de idiomas y estén abiertas para tu perfil económico.
+     Siguiente paso: Consulta la página de la Fundación Carolina para conocer las próximas convocatorias y mientras tanto mejora tu nivel de español a B2.
+
+  3. Beca Erasmus Mundus  ·  Europa  ·  USD 45000
+     Cierre: 2025-04-01   GPA mín: 3.8   Idioma: Ingles C1
+     Score interno: 38.0   Fit LLM: 10 / 100
+     Por qué te encaja:
+        - País destino (Europa) está en tus intereses
+        - Beca abierta a todas las carreras
+     Advertencias:
+        ! GPA insuficiente (3.1 < 3.8)
+        ! Te faltan idiomas: Ingles C1
+        ! La beca está dirigida a situación D, tu perfil es C
+        ! Convocatoria cerrada el 2025-04-01
+     Recomendación del asesor IA: Lamentamos informarte que la Beca Erasmus Mundus no es adecuada para tu perfil actual. Tu GPA de 3.1 está por debajo del mínimo requerido de 3.8, y tu nivel de inglés B1 no alcanza el C1 solicitado. Además, la beca está dirigida a estudiantes con situación económica D y la convocatoria cerró el 1 de abril de 2025.
+     Siguiente paso: Te recomendamos buscar becas con requisitos más flexibles, como las ofrecidas por el programa de becas de la OEA o las becas Santander, que pueden alinearse mejor con tu perfil académico y nivel de idiomas.
+
+------------------------------------------------------------------------------
+ESTUDIANTE: Andres Castro   (ID 1010)
+  Carrera: Matematicas   GPA: 4.0   Situación EC: A
+  Idiomas: Ingles C1, Aleman B2
+  Países de interés: Alemania
+  Email: andres.castro@universidad.edu
+
+  Top 3 becas más afines:
+  1. Beca Erasmus Mundus  ·  Europa  ·  USD 45000
+     Cierre: 2025-04-01   GPA mín: 3.8   Idioma: Ingles C1
+     Score interno: 80.0   Fit LLM: 25 / 100
+     Por qué te encaja:
+        - GPA 4.0 cumple el mínimo de 3.8
+        - País destino (Europa) está en tus intereses
+        - Beca abierta a todas las carreras
+        - Cumples todos los idiomas requeridos (Ingles C1)
+     Advertencias:
+        ! La beca está dirigida a situación D, tu perfil es A
+        ! Convocatoria cerrada el 2025-04-01
+     Recomendación del asesor IA: Cumples con los requisitos académicos y de idioma, pero la beca está dirigida a una situación económica D (menores recursos) y tu perfil es A, lo que no es compatible. Además, la convocatoria cerró el 1 de abril de 2025, por lo que ya no puedes postularte.
+     Siguiente paso: Te recomendamos buscar becas para Alemania como el DAAD o programas específicos para estudiantes de matemáticas con alto rendimiento y situación económica A, y preparar tu documentación para la próxima convocatoria.
+
+  2. Erasmus+ Europa  ·  Alemania  ·  USD 12000
+     Cierre: 2025-05-15   GPA mín: 3.0   Idioma: Ingles B2, Aleman A2
+     Score interno: 67.4   Fit LLM: 0 / 100
+     Por qué te encaja:
+        - GPA 4.0 cumple el mínimo de 3.0
+        - País destino (Alemania) está en tus intereses
+        - Cumples todos los idiomas requeridos (Ingles B2, Aleman A2)
+        - La beca no restringe por situación económica
+     Advertencias:
+        ! Carrera Matematicas no encaja con Medicina
+        ! Convocatoria cerrada el 2025-05-15
+     Recomendación del asesor IA: Lamentablemente, esta beca está dirigida exclusivamente a estudiantes de Medicina, y tu carrera es Matemáticas, por lo que no cumples con el requisito principal. Además, la convocatoria cerró el 15 de mayo de 2025, así que ya no es posible postular. Te recomendamos buscar otras becas que acepten tu perfil y estén vigentes.
+     Siguiente paso: Consulta en la página de tu universidad o en plataformas como DAAD otras oportunidades de movilidad a Alemania abiertas para Matemáticas.
+
+  3. Beca Fulbright Maestria  ·  Estados Unidos  ·  USD 35000
+     Cierre: 2025-06-30   GPA mín: 3.5   Idioma: Ingles C1
+     Score interno: 67.0   Fit LLM: - / 100
+     Por qué te encaja:
+        - GPA 4.0 cumple el mínimo de 3.5
+        - Tu carrera (Matematicas) está dentro del área aceptada
+        - Cumples todos los idiomas requeridos (Ingles C1)
+        - Tu situación económica (A) coincide con el perfil de la beca
+     Advertencias:
+        ! País Estados Unidos fuera de tus intereses (Alemania)
+        ! Convocatoria cerrada el 2025-06-30
+     Recomendación del asesor IA: (LLM no disponible: 429 Client Error: Too Many Requests for url: https://api-ap-southeast-1.modelarts-maas.com/openai/v1/chat/completions)

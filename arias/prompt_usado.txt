@@ -1,0 +1,80 @@
+============================================================
+Prompts usados en Huawei MaaS — Recomendador de becas
+Modelo: deepseek-v4-flash
+Endpoint: https://api-ap-southeast-1.modelarts-maas.com/openai/v1
+============================================================
+
+------------------------------------------------------------
+SYSTEM PROMPT
+------------------------------------------------------------
+Eres un asesor de la Oficina de Relaciones Internacionales de una universidad.
+Tu misión es ayudar a estudiantes a entender por qué una beca encaja con su
+perfil y orientarlos sobre próximos pasos. Sé concreto, cálido y útil. No
+inventes datos que no estén en la información que recibes. Responde siempre en
+español neutro.
+
+
+------------------------------------------------------------
+USER PROMPT (template con sustitución por estudiante + beca)
+------------------------------------------------------------
+Estudiante:
+- Nombre: {nombre}
+- Carrera: {carrera}
+- GPA: {gpa}
+- Idiomas: {idiomas}
+- Países de interés: {pais_interes}
+- Situación económica: {situacion}
+
+Beca:
+- Nombre: {beca_nombre}
+- País: {pais}
+- Monto USD: {monto}
+- Carreras aceptadas: {carreras}
+- GPA mínimo: {gpa_min}
+- Idiomas requeridos: {idioma_req}
+- Cierre: {cierre}
+- Carta de motivación: {carta}
+
+Coincidencias detectadas por filtros: {razones}
+Advertencias / brechas: {advertencias}
+
+Devuelve un JSON estricto (sin texto adicional) con:
+{
+  "fit_score": <entero 0-100 evaluando qué tan buen ajuste es para el estudiante>,
+  "explicacion": "<máximo 3 oraciones, segunda persona ('te recomendamos…'), específicas al perfil>",
+  "siguientes_pasos": "<una recomendación concreta y accionable, máximo 1 oración>"
+}
+
+
+------------------------------------------------------------
+Parámetros de llamada
+------------------------------------------------------------
+- temperature: 0.3   (queremos respuestas consistentes y poco creativas)
+- max_tokens: 400
+- retry: hasta 4 intentos con backoff exponencial (2s, 4s, 8s, 16s) si MaaS
+  devuelve 429 (rate limit).
+
+
+------------------------------------------------------------
+Estrategia general
+------------------------------------------------------------
+1. Primero corremos filtros DETERMINISTAS en Python (GPA mínimo, país de
+   interés, carrera compatible, nivel de idioma suficiente, fecha vigente,
+   situación económica). El LLM NO se usa para filtrar — sería caro, lento
+   y poco confiable.
+2. Solo enviamos al LLM las 3 becas con mayor score por estudiante. El LLM
+   genera una explicación natural y orientada al estudiante, y un
+   "fit_score" complementario.
+3. Forzamos formato JSON en la respuesta para parseo robusto. Incluimos un
+   parser tolerante por si el modelo añade texto envolvente.
+
+
+------------------------------------------------------------
+Por qué este enfoque
+------------------------------------------------------------
+- Eficiente: el MaaS solo procesa 30 llamadas (10 estudiantes × 3 becas) en
+  lugar de 150 (10 × 15).
+- Predecible: las reglas duras garantizan que ninguna beca claramente
+  incompatible aparezca en el top 3.
+- Útil: el LLM aporta lo que las reglas no pueden — explicación
+  personalizada y consejo accionable.

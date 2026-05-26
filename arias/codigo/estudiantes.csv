@@ -1,0 +1,11 @@
+id_estudiante,nombre,carrera,gpa,idiomas,pais_interes,situacion_economica,email
+1001,Ana Lopez,Ingenieria Informatica,3.7,"Ingles C1, Frances A2","Estados Unidos, Canada",A,ana.lopez@universidad.edu
+1002,Carlos Ruiz,Medicina,3.2,"Ingles B2, Aleman A1",Alemania,B,carlos.ruiz@universidad.edu
+1003,Maria Gomez,Biologia,2.9,Ingles B1,Espana,D,maria.gomez@universidad.edu
+1004,Pedro Sanchez,Robotica,3.8,"Ingles B1, Japones N4",Japon,C,pedro.sanchez@universidad.edu
+1005,Laura Fernandez,Ingenieria Civil,3.0,Ingles B2,"Mexico, Estados Unidos",D,laura.fernandez@universidad.edu
+1006,Jorge Martinez,Administracion de Empresas,3.5,"Ingles C1, Frances B1",Francia,C,jorge.martinez@universidad.edu
+1007,Sofia Ramirez,Arquitectura,3.9,"Ingles C2, Italiano B2","Italia, Espana",A,sofia.ramirez@universidad.edu
+1008,Diego Torres,Ciencias de la Computacion,3.6,Ingles C1,Canada,B,diego.torres@universidad.edu
+1009,Valentina Herrera,Psicologia,3.1,"Ingles B1, Portugues A2","Brasil, Espana",C,valentina.herrera@universidad.edu
+1010,Andres Castro,Matematicas,4.0,"Ingles C1, Aleman B2",Alemania,A,andres.castro@universidad.edu
