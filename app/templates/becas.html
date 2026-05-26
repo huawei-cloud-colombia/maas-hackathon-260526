@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}BecaMatch - Becas Disponibles{% endblock %}
+{% block content %}
+<h1 class="section-title">Becas Disponibles</h1>
+<div class="becas-grid">
+    {% for b in becas %}
+    <a href="/beca/{{ b.id_beca }}" class="beca-card">
+        <h3>{{ b.nombre_beca }}</h3>
+        <div class="beca-meta">
+            <span class="beca-pais">{{ b.pais }}</span>
+            <span class="beca-monto">${{ "{:,.0f}".format(b.monto) }} USD</span>
+        </div>
+        <div class="beca-details">
+            <p><strong>GPA Minimo:</strong> {{ b.gpa_minimo }}</p>
+            <p><strong>Carreras:</strong> {{ b.carreras_aceptadas | join(', ') }}</p>
+            <p><strong>Idioma:</strong>
+                {% for idioma in b.idioma_requerido %}
+                {{ idioma.idioma }} {{ idioma.nivel }}{{ "," if not loop.last else "" }}
+                {% endfor %}
+            </p>
+            <p><strong>Cierre:</strong> {{ b.fecha_cierre }}</p>
+        </div>
+        {% if b.requiere_carta %}
+        <span class="rec-warning">Requiere carta</span>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
+<div class="back-link">
+    <a href="/" class="btn btn-secondary">Volver a Estudiantes</a>
+</div>
+{% endblock %}

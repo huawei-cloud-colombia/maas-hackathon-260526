@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}BecaMatch - {{ beca.nombre_beca }}{% endblock %}
+{% block content %}
+<div class="beca-detail">
+    <a href="/becas" class="btn btn-secondary">Volver a Becas</a>
+    <h1>{{ beca.nombre_beca }}</h1>
+    <div class="beca-detail-grid">
+        <div class="detail-item"><span class="detail-label">Pais</span><span class="detail-value">{{ beca.pais }}</span></div>
+        <div class="detail-item"><span class="detail-label">Monto</span><span class="detail-value">${{ "{:,.0f}".format(beca.monto) }} USD</span></div>
+        <div class="detail-item"><span class="detail-label">GPA Minimo</span><span class="detail-value">{{ beca.gpa_minimo }}</span></div>
+        <div class="detail-item"><span class="detail-label">Fecha de Cierre</span><span class="detail-value">{{ beca.fecha_cierre }}</span></div>
+        <div class="detail-item"><span class="detail-label">Requiere Carta</span><span class="detail-value">{% if beca.requiere_carta %}Si{% else %}No{% endif %}</span></div>
+        {% if beca.situacion_ec %}
+        <div class="detail-item"><span class="detail-label">Situacion Economica</span><span class="detail-value">{{ beca.situacion_ec }}</span></div>
+        {% endif %}
+    </div>
+    <div class="detail-section">
+        <h3>Carreras Aceptadas</h3>
+        <div class="tag-list">{% for c in beca.carreras_aceptadas %}<span class="lang-tag">{{ c }}</span>{% endfor %}</div>
+    </div>
+    <div class="detail-section">
+        <h3>Idiomas Requeridos</h3>
+        <div class="tag-list">{% for idioma in beca.idioma_requerido %}<span class="lang-tag">{{ idioma.idioma }} {{ idioma.nivel }}</span>{% endfor %}</div>
+    </div>
+</div>
+{% endblock %}

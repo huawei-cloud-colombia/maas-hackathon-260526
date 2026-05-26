@@ -1,0 +1,16 @@
+Con base al siguiente problema quiero que generes un "Sistema de recomendación de becas personalizado para universidades". 
+La problemática es:
+"La Oficina de Relaciones Internacionales de una universidad recibe cientos de convocatorias de becas cada semestre. Los estudiantes se quejan de que no encuentran becas relevantes y pierden oportunidades. La oficina quiere un Sistema que: Filtre y priorice becas según el perfil del estudiante."
+La documentación la puedes encontrar en @/docs 
+Los criterios son:
+1. Coincidencia exacta de carrera (si la beca pide ‘Ingeniería’ y el estudiante estudia ‘Ingeniería Informática’, es aceptable si la carrera es afín, pero mejor si es exacta).
+2. GPA mayor o igual al mínimo exigido por la beca.
+3. Idioma: el nivel del estudiante debe ser al menos el requerido.
+4. País de interés: si el estudiante marcó ese país, suma punto extra.
+5. Prioridad por fecha de cierre: las becas que cierran pronto deben aparecer primero.
+
+Si tienes dudas, me preguntas antes de realizar cualquier proceso.
+
+
+
+Cuál es el stack que mejor se destaca paa esta labor?

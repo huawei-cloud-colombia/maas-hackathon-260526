@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}BecaMatch - Estudiantes{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>Sistema de Recomendacion de Becas</h1>
+    <p>Encuentra las becas que mejor se adaptan a tu perfil academico</p>
+</div>
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar estudiante por nombre o carrera..." onkeyup="filterStudents()">
+</div>
+<div class="students-grid" id="studentsGrid">
+    {% for e in estudiantes %}
+    <a href="/estudiante/{{ e.id_estudiante }}" class="student-card" data-name="{{ e.nombre.lower() }}" data-carrera="{{ e.carrera.lower() }}">
+        <div class="student-avatar">{{ e.nombre[0] }}</div>
+        <div class="student-info">
+            <h3>{{ e.nombre }}</h3>
+            <p class="student-carrera">{{ e.carrera }}</p>
+            <div class="student-stats">
+                <span class="badge badge-gpa">GPA: {{ e.gpa }}</span>
+                <span class="badge badge-ec">Nivel: {{ e.situacion_economica }}</span>
+            </div>
+            <div class="student-langs">
+                {% for idioma in e.idiomas %}
+                <span class="lang-tag">{{ idioma.idioma }} {{ idioma.nivel }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card-arrow">&#8594;</div>
+    </a>
+    {% endfor %}
+</div>
+<script>
+function filterStudents() {
+    var query = document.getElementById('searchInput').value.toLowerCase();
+    var cards = document.querySelectorAll('.student-card');
+    cards.forEach(function(card) {
+        var name = card.dataset.name;
+        var carrera = card.dataset.carrera;
+        card.style.display = (name.indexOf(query) !== -1 || carrera.indexOf(query) !== -1) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

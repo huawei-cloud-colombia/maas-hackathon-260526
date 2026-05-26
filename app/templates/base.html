@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Recomendacion de Becas{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <span class="nav-icon">🎓</span>
+                <span>BecaMatch</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Estudiantes</a>
+                <a href="/becas" class="nav-link">Becas</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <p>Sistema de Recomendacion de Becas — Oficina de Relaciones Internacionales</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}BecaMatch - Recomendaciones para {{ estudiante.nombre }}{% endblock %}
+{% block content %}
+<div class="profile-header">
+    <div class="profile-avatar">{{ estudiante.nombre[0] }}</div>
+    <div class="profile-details">
+        <h1>{{ estudiante.nombre }}</h1>
+        <p class="profile-carrera">{{ estudiante.carrera }}</p>
+        <div class="profile-meta">
+            <span class="badge badge-gpa">GPA: {{ estudiante.gpa }}</span>
+            <span class="badge badge-ec">Nivel Economico: {{ estudiante.situacion_economica }}</span>
+            <span class="badge badge-email">{{ estudiante.email }}</span>
+        </div>
+        <div class="profile-langs">
+            <strong>Idiomas:</strong>
+            {% for idioma in estudiante.idiomas %}
+            <span class="lang-tag">{{ idioma.idioma }} {{ idioma.nivel }}</span>
+            {% endfor %}
+        </div>
+        <div class="profile-paises">
+            <strong>Paises de interes:</strong>
+            {% for pais in estudiante.pais_interes %}
+            <span class="lang-tag">{{ pais }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="/" class="btn btn-secondary">Volver</a>
+</div>
+
+<div class="stats-bar">
+    <div class="stat-item">
+        <span class="stat-number">{{ stats.total }}</span>
+        <span class="stat-label">Becas Elegibles</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ stats.score_max }}</span>
+        <span class="stat-label">Mejor Score</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ stats.score_promedio }}</span>
+        <span class="stat-label">Score Promedio</span>
+    </div>
+</div>
+
+<h2 class="section-title">Becas Recomendadas (ordenadas por compatibilidad)</h2>
+
+<div class="recomendaciones-list">
+    {% for rec in recomendaciones %}
+    {% set beca = rec.beca %}
+    {% set det = rec.detalle %}
+    <div class="recomendacion-card">
+        <div class="rec-header">
+            <div class="rec-rank">#{{ loop.index }}</div>
+            <div class="rec-title">
+                <h3><a href="/beca/{{ beca.id_beca }}">{{ beca.nombre_beca }}</a></h3>
+                <span class="rec-pais">{{ beca.pais }}</span>
+                <span class="rec-monto">${{ "{:,.0f}".format(beca.monto) }} USD</span>
+            </div>
+            <div class="rec-score">
+                <div class="score-circle">
+                    <span class="score-value">{{ rec.score_total }}</span>
+                </div>
+                <span class="score-label">/ {{ score_maximo }}</span>
+            </div>
+        </div>
+
+        <div class="rec-breakdown">
+            <div class="breakdown-item {% if det.carrera_tipo == 'exacta' %}breakdown-good{% elif det.carrera_tipo == 'afin' %}breakdown-ok{% elif det.carrera_tipo == 'todas' %}breakdown-neutral{% else %}breakdown-bad{% endif %}">
+                <span class="breakdown-label">Carrera</span>
+                <span class="breakdown-score">{{ det.score_carrera }}</span>
+                <span class="breakdown-detail">
+                    {% if det.carrera_tipo == 'exacta' %}Coincidencia exacta{% elif det.carrera_tipo == 'afin' %}Carrera afin{% elif det.carrera_tipo == 'todas' %}Todas las carreras{% else %}No coincide{% endif %}
+                </span>
+            </div>
+
+            <div class="breakdown-item {% if det.gpa_cumple %}breakdown-good{% else %}breakdown-bad{% endif %}">
+                <span class="breakdown-label">GPA</span>
+                <span class="breakdown-score">{{ det.score_gpa }}</span>
+                <span class="breakdown-detail">
+                    {% if det.gpa_cumple %}{{ estudiante.gpa }} >= {{ beca.gpa_minimo }}{% else %}{{ estudiante.gpa }} < {{ beca.gpa_minimo }}{% endif %}
+                </span>
+            </div>
+
+            <div class="breakdown-item {% if det.idioma_parcial %}breakdown-good{% else %}breakdown-bad{% endif %}">
+                <span class="breakdown-label">Idioma</span>
+                <span class="breakdown-score">{{ det.score_idioma }}</span>
+                <span class="breakdown-detail">
+                    {% for id_det in det.idioma_detalle %}
+                    {{ id_det.idioma }} {{ id_det.nivel_requerido }}:{% if id_det.cumple %} Si{% else %} No{% endif %}{{ "," if not loop.last else "" }}
+                    {% endfor %}
+                </span>
+            </div>
+
+            <div class="breakdown-item {% if det.score_pais > 0 %}breakdown-good{% else %}breakdown-neutral{% endif %}">
+                <span class="breakdown-label">Pais</span>
+                <span class="breakdown-score">{{ det.score_pais }}</span>
+                <span class="breakdown-detail">
+                    {% if det.score_pais >= 1.0 %}Pais de interes{% elif det.score_pais > 0 %}Region de interes{% else %}No en preferencias{% endif %}
+                </span>
+            </div>
+
+            <div class="breakdown-item breakdown-neutral">
+                <span class="breakdown-label">Fecha</span>
+                <span class="breakdown-score">{{ det.score_fecha }}</span>
+                <span class="breakdown-detail">Cierra: {{ beca.fecha_cierre }}</span>
+            </div>
+        </div>
+
+        <div class="rec-footer">
+            <span class="rec-date">Fecha de cierre: <strong>{{ beca.fecha_cierre }}</strong></span>
+            {% if beca.requiere_carta %}
+            <span class="rec-warning">Requiere carta de recomendacion</span>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if not recomendaciones %}
+    <div class="empty-state">
+        <h3>No se encontraron becas elegibles</h3>
+        <p>El perfil del estudiante no cumple con los requisitos minimos de las becas disponibles.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
