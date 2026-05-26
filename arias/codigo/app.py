@@ -36,11 +36,36 @@ DANGER = "#F87171"
 
 
 # ---------------------------------------------------------------- HARNESS ----
+REQUIRED_BECAS_COLS = {
+    "id_beca", "nombre_beca", "pais", "monto", "carreras_aceptadas",
+    "gpa_minimo", "idioma_requerido", "fecha_cierre",
+}
+REQUIRED_EST_COLS = {
+    "id_estudiante", "nombre", "carrera", "gpa", "idiomas", "pais_interes",
+}
+
+
+def detectar_tipo_csv(contenido_bytes: bytes) -> str | None:
+    """Devuelve 'becas', 'estudiantes' o None examinando la cabecera."""
+    try:
+        primera_linea = contenido_bytes.split(b"\n", 1)[0].decode("utf-8", errors="ignore")
+    except Exception:  # noqa: BLE001
+        return None
+    cols = {c.strip().lower() for c in primera_linea.split(",")}
+    if REQUIRED_BECAS_COLS.issubset(cols):
+        return "becas"
+    if REQUIRED_EST_COLS.issubset(cols):
+        return "estudiantes"
+    return None
+
+
 class Harness:
     """Capa que el asistente puede invocar como 'tools' para ejecutar acciones."""
 
     def __init__(self):
-        self.becas, self.estudiantes = cargar_csvs(str(BECAS_CSV), str(ESTUDIANTES_CSV))
+        self.becas_path = BECAS_CSV
+        self.estudiantes_path = ESTUDIANTES_CSV
+        self.becas, self.estudiantes = cargar_csvs(str(self.becas_path), str(self.estudiantes_path))
         self.cliente = None
         self.cache_llm: dict[tuple, dict] = {}
 
@@ -48,6 +73,20 @@ class Harness:
         if self.cliente is None:
             self.cliente = MaaSClient()
         return self.cliente
+
+    def recargar(self) -> None:
+        """Recarga los CSVs desde disco; limpia el cache LLM porque cambió el dataset."""
+        self.becas, self.estudiantes = cargar_csvs(str(self.becas_path), str(self.estudiantes_path))
+        self.cache_llm.clear()
+
+    def reemplazar_csv(self, tipo: str, contenido_bytes: bytes) -> tuple[int, int]:
+        """Reemplaza becas.csv o estudiantes.csv y recarga. Devuelve (n_becas, n_estudiantes)."""
+        if tipo not in ("becas", "estudiantes"):
+            raise ValueError(f"tipo desconocido: {tipo}")
+        destino = BECAS_CSV if tipo == "becas" else ESTUDIANTES_CSV
+        destino.write_bytes(contenido_bytes)
+        self.recargar()
+        return len(self.becas), len(self.estudiantes)
 
     def listar_estudiantes(self) -> list[dict]:
         return self.estudiantes
@@ -292,10 +331,12 @@ def typing_indicator() -> ft.Container:
 
 # ---------------------------------------------------------------- ASISTENTE --
 class Asistente:
-    def __init__(self, page: ft.Page, lista_chat: ft.Column, harness: Harness):
+    def __init__(self, page: ft.Page, lista_chat: ft.Column, harness: Harness, file_picker: ft.FilePicker, url_launcher: "ft.UrlLauncher"):
         self.page = page
         self.lista = lista_chat
         self.harness = harness
+        self.file_picker = file_picker
+        self.url_launcher = url_launcher
         self.estudiante: dict | None = None
         self.matches: list[Match] = []
 
@@ -354,6 +395,7 @@ class Asistente:
     def saludar(self):
         opciones = [
             quick_reply("Buscar mis becas", lambda e: self.flujo_buscar(), icono=ft.Icons.SEARCH, color=ACCENT),
+            quick_reply("Cargar mis CSVs", lambda e: self.flujo_cargar_csvs(), icono=ft.Icons.UPLOAD_FILE, color="#F472B6"),
             quick_reply("Generar / regenerar reporte", lambda e: self.flujo_reporte(), icono=ft.Icons.PICTURE_AS_PDF, color=PRIMARY_SOFT),
             quick_reply("Cómo funciona", lambda e: self.flujo_ayuda(), icono=ft.Icons.HELP_OUTLINE, color=OK),
         ]
@@ -367,6 +409,106 @@ class Asistente:
             f"Te puedo ayudar a encontrar becas que encajen con tu perfil.\n\n¿Qué quieres hacer?",
             opciones=opciones,
         )
+
+    def flujo_cargar_csvs(self):
+        self.usuario_dice("Cargar mis CSVs")
+        n_b = len(self.harness.becas)
+        n_e = len(self.harness.estudiantes)
+        self.bot_dice(
+            f"Ahora tengo {n_b} becas y {n_e} estudiantes cargados. "
+            f"Puedes subir un nuevo CSV (becas o estudiantes) y los detecto por las columnas. "
+            f"También puedes seleccionar varios a la vez.",
+            opciones=[
+                quick_reply(
+                    "Seleccionar archivo(s) CSV",
+                    lambda e: self._abrir_picker(),
+                    icono=ft.Icons.FILE_OPEN,
+                    color="#F472B6",
+                ),
+            ],
+        )
+
+    def _abrir_picker(self):
+        # pick_files es coroutine en Flet 0.85+. Lo programamos como tarea en
+        # el event loop de Flet con page.run_task; el handler async espera el
+        # resultado y delega a manejar_subida (sync).
+        self.page.run_task(self._abrir_picker_async)
+
+    async def _abrir_picker_async(self):
+        try:
+            archivos = await self.file_picker.pick_files(
+                dialog_title="Selecciona becas.csv y/o estudiantes.csv",
+                allowed_extensions=["csv"],
+                allow_multiple=True,
+                with_data=True,
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.bot_dice(f"No pude abrir el selector: {exc}")
+            return
+        self.manejar_subida(archivos or [])
+
+    def manejar_subida(self, archivos: list[ft.FilePickerFile]):
+        """Llamado por main() cuando el FilePicker entrega archivos."""
+        if not archivos:
+            self.bot_dice("No se seleccionó ningún archivo.")
+            return
+        resultados: list[str] = []
+        ignorados: list[str] = []
+        for f in archivos:
+            data = f.bytes if hasattr(f, "bytes") and f.bytes else None
+            # Fallback: si Flet expuso un path local (modo desktop), leer del disco
+            if data is None and getattr(f, "path", None):
+                try:
+                    from pathlib import Path as _P
+                    data = _P(f.path).read_bytes()
+                except Exception:  # noqa: BLE001
+                    data = None
+            if not data:
+                ignorados.append(f"{f.name}: no pude leer los bytes")
+                continue
+            tipo = detectar_tipo_csv(data)
+            if tipo is None:
+                ignorados.append(f"{f.name}: columnas no reconocidas")
+                continue
+            n_b, n_e = self.harness.reemplazar_csv(tipo, data)
+            resultados.append(f"{f.name} → {tipo} ({n_b} becas, {n_e} estudiantes)")
+            self.estudiante = None  # invalida selección previa
+        cuerpo = ft.Column(
+            [
+                ft.Row(
+                    [
+                        ft.Icon(ft.Icons.CHECK_CIRCLE if resultados else ft.Icons.WARNING_AMBER_ROUNDED,
+                                color=OK if resultados else WARN, size=18),
+                        ft.Text(
+                            "Datos actualizados" if resultados else "No se cargó nada",
+                            color=OK if resultados else WARN,
+                            size=14,
+                            weight=ft.FontWeight.W_700,
+                        ),
+                    ],
+                    spacing=6,
+                ),
+                ft.Column(
+                    [ft.Text(f"✓ {r}", color=TEXT_MAIN, size=12) for r in resultados]
+                    + [ft.Text(f"! {r}", color=WARN, size=12) for r in ignorados],
+                    spacing=2,
+                    tight=True,
+                ),
+                ft.Row(
+                    [
+                        quick_reply("Buscar becas con estos datos", lambda e: self.flujo_buscar(), icono=ft.Icons.SEARCH, color=ACCENT),
+                        quick_reply("Regenerar reporte", lambda e: self.flujo_reporte(), icono=ft.Icons.PICTURE_AS_PDF, color=PRIMARY_SOFT),
+                    ],
+                    wrap=True,
+                    spacing=6,
+                    run_spacing=6,
+                ) if resultados else ft.Container(),
+            ],
+            spacing=8,
+            tight=True,
+        )
+        self._typing(0.3)
+        self._agregar(bubble_asistente(cuerpo))
 
     def flujo_descargas(self):
         self.usuario_dice("Descargar reportes")
@@ -513,8 +655,11 @@ class Asistente:
     def _descargar(self, ruta_relativa: str):
         # Los reportes viven en arias/ y se sirven desde assets_dir como rutas
         # absolutas de URL. En modo web abre en pestaña; en desktop usa app
-        # nativa via launch_url.
-        self.page.launch_url(ruta_relativa)
+        # nativa via UrlLauncher (la API recomendada en Flet 0.85+).
+        try:
+            self.url_launcher.launch_url(ruta_relativa, web_only_window_name="_blank")
+        except Exception as exc:  # noqa: BLE001
+            self.bot_dice(f"No pude abrir el archivo: {exc}")
 
     def _generar_reporte_async(self):
         try:
@@ -592,7 +737,12 @@ def main(page: ft.Page):
         auto_scroll=True,
     )
 
-    asistente = Asistente(page, chat, harness)
+    file_picker = ft.FilePicker()
+    url_launcher = ft.UrlLauncher()
+    page.services.append(file_picker)
+    page.services.append(url_launcher)
+
+    asistente = Asistente(page, chat, harness, file_picker, url_launcher)
 
     input_field = ft.TextField(
         hint_text="Escribe un mensaje…",
