@@ -18,7 +18,7 @@ class MaaSClient:
         if self.available:
             try:
                 self._client = OpenAI(
-                    base_url=f"{self.base_url}/chat/completions",
+                    base_url=self.base_url,
                     api_key=self.api_key,
                     timeout=self.timeout,
                 )

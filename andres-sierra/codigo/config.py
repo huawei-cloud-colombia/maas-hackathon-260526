@@ -1,7 +1,11 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+_codigo_dir = Path(__file__).resolve().parent
+_project_dir = _codigo_dir.parent
+load_dotenv(_project_dir / ".env")
+load_dotenv(_codigo_dir / ".env", override=False)
 
 MAAS_BASE_URL = os.getenv("MAAS_BASE_URL", "https://api-ap-southeast-1.modelarts-maas.com/v2")
 MAAS_API_KEY = os.getenv("MAAS_API_KEY", "")

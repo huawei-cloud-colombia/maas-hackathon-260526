@@ -4,6 +4,9 @@ services:
     container_name: hackathon-maas-app
     ports:
       - "8580:8080"
+    env_file:
+      - path: .env
+        required: false
     environment:
       - MAAS_BASE_URL=${MAAS_BASE_URL:-https://api-ap-southeast-1.modelarts-maas.com/v2}
       - MAAS_API_KEY=${MAAS_API_KEY:-}

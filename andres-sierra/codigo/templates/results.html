@@ -3,191 +3,212 @@
 {% block content %}
 {% set m = data.metrics %}
 
-<div class="row mb-4">
-    <div class="col-6 col-md-3">
-        <div class="card text-center shadow-sm h-100">
-            <div class="card-body">
-                <h3 class="text-primary mb-0">{{ m.estudiantes }}</h3>
-                <small class="text-muted">Estudiantes</small>
-            </div>
+<section class="results-hero">
+    <div class="hero-bg"></div>
+    <div class="container position-relative">
+        <div class="results-header animate-in">
+            <h1>Resultados</h1>
+            <p>Top 3 becas por estudiante con explicaci&oacute;n verificable</p>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="card text-center shadow-sm h-100">
-            <div class="card-body">
-                <h3 class="text-primary mb-0">{{ m.becas }}</h3>
-                <small class="text-muted">Becas evaluadas</small>
+</section>
+
+<section class="results-body">
+    <div class="container">
+
+        <div class="metrics-row animate-in" style="--delay:0.1s">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="bi bi-people-fill"></i></div>
+                <div class="metric-value">{{ m.estudiantes }}</div>
+                <div class="metric-label">Estudiantes</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="bi bi-building"></i></div>
+                <div class="metric-value">{{ m.becas }}</div>
+                <div class="metric-label">Becas</div>
+            </div>
+            <div class="metric-card metric-highlight">
+                <div class="metric-icon"><i class="bi bi-check-circle-fill"></i></div>
+                <div class="metric-value">{{ m.elegibles }}</div>
+                <div class="metric-label">Elegibles</div>
+            </div>
+            <div class="metric-card {% if m.ia_available %}metric-ia{% else %}metric-fallback{% endif %}">
+                <div class="metric-icon"><i class="bi bi-robot"></i></div>
+                <div class="metric-value">{{ m.ia_enriched }}</div>
+                <div class="metric-label">{% if m.ia_available %}IA Enriquecida{% else %}Fallback{% endif %}</div>
             </div>
         </div>
-    </div>
-    <div class="col-6 col-md-3">
-        <div class="card text-center shadow-sm h-100">
-            <div class="card-body">
-                <h3 class="text-success mb-0">{{ m.elegibles }}</h3>
-                <small class="text-muted">Matches elegibles</small>
-            </div>
+
+        {% if not m.ia_available %}
+        <div class="alert-card alert-warn animate-in" style="--delay:0.15s">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span><strong>Modo fallback:</strong> MaaS/DeepSeek no configurado. Configure <code>MAAS_API_KEY</code> para enriquecimiento IA.</span>
         </div>
-    </div>
-    <div class="col-6 col-md-3">
-        <div class="card text-center shadow-sm h-100">
-            <div class="card-body">
-                <h3 class="{% if m.ia_available %}text-info{% else %}text-warning{% endif %} mb-0">{{ m.ia_enriched }}</h3>
-                <small class="text-muted">Enriquecidas con IA</small>
-            </div>
-        </div>
-    </div>
-</div>
+        {% endif %}
 
-{% if not m.ia_available %}
-<div class="alert alert-warning">
-    <i class="bi bi-exclamation-triangle me-2"></i>
-    <strong>Modo fallback:</strong> MaaS/DeepSeek no configurado. Solo se aceptan coincidencias exactas de carrera. Configure <code>MAAS_API_KEY</code> para enriquecimiento con IA.
-</div>
-{% endif %}
-
-{% if data.warnings %}
-<div class="alert alert-secondary">
-    <strong>Advertencias:</strong>
-    <ul class="mb-0 mt-1">
-    {% for w in data.warnings %}
-        <li>{{ w }}</li>
-    {% endfor %}
-    </ul>
-</div>
-{% endif %}
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4>Top 3 becas por estudiante</h4>
-    <div>
-        <a href="/download/txt" class="btn btn-outline-primary btn-sm"><i class="bi bi-file-earmark-text me-1"></i>Descargar .txt</a>
-        <a href="/download/csv" class="btn btn-outline-success btn-sm"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Descargar .csv</a>
-        <a href="/" class="btn btn-outline-secondary btn-sm ms-2"><i class="bi bi-arrow-left me-1"></i>Nueva consulta</a>
-    </div>
-</div>
-
-<div class="mb-3">
-    <label class="form-label fw-bold">Filtrar por estudiante:</label>
-    <select class="form-select" id="studentFilter">
-        <option value="all">Todos los estudiantes</option>
-        {% for sid, sdata in data.by_student.items() %}
-        <option value="{{ sid }}">{{ sdata.nombre_estudiante }} ({{ sdata.carrera }})</option>
-        {% endfor %}
-    </select>
-</div>
-
-{% for sid, sdata in data.by_student.items() %}
-<div class="student-card mb-4" data-student="{{ sid }}">
-    <div class="card border-start border-primary border-3 shadow-sm">
-        <div class="card-header bg-light d-flex justify-content-between align-items-center flex-wrap">
-            <h5 class="mb-0">
-                <i class="bi bi-person-fill text-primary me-1"></i>{{ sdata.nombre_estudiante }}
-            </h5>
+        {% if data.warnings %}
+        <div class="alert-card alert-warn animate-in" style="--delay:0.15s">
+            <i class="bi bi-exclamation-triangle"></i>
             <div>
-                <span class="badge bg-secondary me-1">{{ sdata.carrera }}</span>
-                <span class="badge bg-info text-dark me-1">GPA: {{ sdata.gpa }}</span>
-                <span class="badge bg-light text-dark border">{{ sdata.pais_interes }}</span>
+                {% for w in data.warnings %}<div>{{ w }}</div>{% endfor %}
             </div>
         </div>
-        <div class="card-body">
+        {% endif %}
+
+        <div class="toolbar animate-in" style="--delay:0.2s">
+            <div class="toolbar-left">
+                <div class="filter-wrap">
+                    <i class="bi bi-search"></i>
+                    <select class="filter-select" id="studentFilter">
+                        <option value="all">Todos los estudiantes</option>
+                        {% for sid, sdata in data.by_student.items() %}
+                        <option value="{{ sid }}">{{ sdata.nombre_estudiante }} &mdash; {{ sdata.carrera }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="toolbar-right">
+                <a href="/download/txt" class="btn-tool"><i class="bi bi-file-earmark-text"></i> .txt</a>
+                <a href="/download/csv" class="btn-tool"><i class="bi bi-file-earmark-spreadsheet"></i> .csv</a>
+                <a href="/" class="btn-tool btn-tool-accent"><i class="bi bi-arrow-left"></i> Nueva consulta</a>
+            </div>
+        </div>
+
+        {% for sid, sdata in data.by_student.items() %}
+        <div class="student-card animate-in" style="--delay:{{ 0.3 + loop.index0 * 0.1 }}s" data-student="{{ sid }}">
+            <div class="student-header">
+                <div class="student-avatar">
+                    {{ sdata.nombre_estudiante[0] }}
+                </div>
+                <div class="student-info">
+                    <h3>{{ sdata.nombre_estudiante }}</h3>
+                    <div class="student-tags">
+                        <span class="tag tag-career"><i class="bi bi-book"></i> {{ sdata.carrera }}</span>
+                        <span class="tag tag-gpa"><i class="bi bi-bar-chart-fill"></i> GPA {{ sdata.gpa }}</span>
+                        <span class="tag tag-country"><i class="bi bi-geo-alt-fill"></i> {{ sdata.pais_interes }}</span>
+                        <span class="tag tag-ec"><i class="bi bi-wallet2"></i> {{ sdata.situacion_ec }}</span>
+                    </div>
+                </div>
+            </div>
+
             {% if not sdata.top_becas %}
-            <p class="text-muted mb-0">No se encontraron becas elegibles para este estudiante.</p>
+            <div class="no-results">
+                <i class="bi bi-inbox"></i>
+                <p>No se encontraron becas elegibles</p>
+            </div>
             {% else %}
-            <div class="row g-3">
+            <div class="becas-grid">
                 {% for b in sdata.top_becas %}
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm position-relative">
-                        <div class="position-absolute top-0 end-0 m-2">
-                            <span class="badge rounded-pill bg-primary">#{{ loop.index }}</span>
+                <div class="beca-card {% if loop.index == 1 %}beca-top{% endif %}">
+                    <div class="beca-rank">{{ loop.index }}</div>
+                    <div class="beca-score-ring" data-score="{{ b.score }}">
+                        <svg viewBox="0 0 36 36">
+                            <path class="score-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="score-fill" stroke-dasharray="{{ b.score }}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <text x="18" y="20.35" class="score-text">{{ b.score }}</text>
+                        </svg>
+                    </div>
+                    <h4 class="beca-name">{{ b.nombre_beca }}</h4>
+                    <div class="beca-meta">
+                        <span class="beca-country"><i class="bi bi-geo-alt"></i> {{ b.beca_pais }}</span>
+                        <span class="beca-amount">${{ "{:,.0f}".format(b.beca_monto) }}</span>
+                    </div>
+                    <div class="beca-badges">
+                        {% if b.carrera_exacta %}
+                        <span class="badge-c badge-exact"><i class="bi bi-patch-check-fill"></i> Carrera exacta</span>
+                        {% elif b.ia_aplicada %}
+                        <span class="badge-c badge-afin"><i class="bi bi-link-45deg"></i> Carrera af&iacute;n (IA)</span>
+                        {% else %}
+                        <span class="badge-c badge-none"><i class="bi bi-dash"></i> Carrera no coincide</span>
+                        {% endif %}
+                        <span class="badge-c badge-ok"><i class="bi bi-check-lg"></i> GPA</span>
+                        <span class="badge-c badge-ok"><i class="bi bi-check-lg"></i> Idioma</span>
+                        {% if b.estudiante_pais_interes|lower == b.beca_pais|lower %}
+                        <span class="badge-c badge-pais"><i class="bi bi-heart-fill"></i> Pa&iacute;s preferido</span>
+                        {% endif %}
+                        {% if b.ia_aplicada %}
+                        <span class="badge-c badge-ia"><i class="bi bi-robot"></i> IA</span>
+                        {% endif %}
+                        {% if b.beca_requiere_carta %}
+                        <span class="badge-c badge-warn"><i class="bi bi-envelope-paper"></i> Carta</span>
+                        {% endif %}
+                    </div>
+                    <div class="beca-details">
+                        <div class="beca-detail">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Cierre: {{ b.beca_fecha_cierre }}</span>
                         </div>
-                        <div class="card-body">
-                            <h6 class="card-title">{{ b.nombre_beca }}</h6>
-                            <p class="mb-1"><i class="bi bi-geo-alt me-1"></i>{{ b.beca_pais }} &mdash; <strong>${{ "{:,.0f}".format(b.beca_monto) }}</strong></p>
-                            <p class="mb-2">
-                                <span class="badge {% if b.score >= 80 %}bg-success{% elif b.score >= 50 %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
-                                    Puntaje: {{ b.score }}/100
-                                </span>
-                            </p>
-                            <div class="mb-2">
-                                {% if b.carrera_exacta %}
-                                <span class="badge bg-success me-1">Carrera exacta</span>
-                                {% elif b.ia_aplicada %}
-                                <span class="badge bg-info text-dark me-1">Carrera af&iacute;n (IA)</span>
-                                {% else %}
-                                <span class="badge bg-secondary me-1">Carrera no coincide</span>
-                                {% endif %}
-                                <span class="badge bg-success me-1">GPA cumple</span>
-                                <span class="badge bg-success me-1">Idioma cumple</span>
-                                {% if b.estudiante_pais_interes|lower == b.beca_pais|lower %}
-                                <span class="badge bg-info text-dark me-1">Pa&iacute;s preferido</span>
-                                {% endif %}
-                                {% if b.ia_aplicada %}
-                                <span class="badge bg-warning text-dark me-1">IA aplicada</span>
-                                {% endif %}
-                                {% if b.beca_requiere_carta %}
-                                <span class="badge bg-danger me-1">Carta requerida</span>
-                                {% endif %}
-                            </div>
-                            <small class="text-muted d-block mb-1">
-                                <i class="bi bi-calendar me-1"></i>Cierre: {{ b.beca_fecha_cierre }}
-                            </small>
-                            <small class="text-muted d-block">
-                                {% for c in b.criteria %}{{ c }}{% if not loop.last %} &bull; {% endif %}{% endfor %}
-                            </small>
-                            {% set exp_key = sid ~ '|' ~ b.id_beca %}
-                            {% if exp_key in data.explanations %}
-                            <div class="mt-2 p-2 bg-info bg-opacity-10 rounded">
-                                <small><i class="bi bi-robot me-1"></i>{{ data.explanations[exp_key] }}</small>
-                            </div>
-                            {% endif %}
-                            {% if b.pendiente_confirmar %}
-                            <div class="mt-1"><small class="text-warning"><i class="bi bi-exclamation-triangle me-1"></i>PENDIENTE_DE_CONFIRMAR</small></div>
-                            {% endif %}
+                        <div class="beca-detail">
+                            <i class="bi bi-list-check"></i>
+                            <span>{% for c in b.criteria %}{{ c }}{% if not loop.last %} &middot; {% endif %}{% endfor %}</span>
                         </div>
                     </div>
+                    {% set exp_key = sid ~ '|' ~ b.id_beca %}
+                    {% if exp_key in data.explanations %}
+                    <div class="beca-explanation">
+                        <i class="bi bi-robot"></i>
+                        <span>{{ data.explanations[exp_key] }}</span>
+                    </div>
+                    {% endif %}
+                    {% if b.pendiente_confirmar %}
+                    <div class="beca-pending">
+                        <i class="bi bi-exclamation-triangle"></i> PENDIENTE_DE_CONFIRMAR
+                    </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
             {% endif %}
         </div>
+        {% endfor %}
+
+        <div class="table-section animate-in" style="--delay:0.5s">
+            <h3><i class="bi bi-table"></i> Matches elegibles</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estudiante</th>
+                            <th>Beca</th>
+                            <th>Pa&iacute;s</th>
+                            <th>Monto</th>
+                            <th>Puntaje</th>
+                            <th>Carrera</th>
+                            <th>Cierre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in data.all_scored %}
+                        <tr>
+                            <td>{{ s.nombre_estudiante }}</td>
+                            <td>{{ s.nombre_beca }}</td>
+                            <td>{{ s.beca_pais }}</td>
+                            <td class="amount">${{ "{:,.0f}".format(s.beca_monto) }}</td>
+                            <td>
+                                <div class="score-bar" data-score="{{ s.score }}">
+                                    <div class="score-bar-fill" style="width:{{ s.score }}%"></div>
+                                    <span>{{ s.score }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                {% if s.carrera_exacta %}<span class="badge-c badge-exact-sm">Exacta</span>
+                                {% elif s.ia_aplicada %}<span class="badge-c badge-afin-sm">Af&iacute;n IA</span>
+                                {% else %}<span class="badge-c badge-none-sm">No</span>{% endif %}
+                            </td>
+                            <td>{{ s.beca_fecha_cierre }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="eval-note">
+            <i class="bi bi-info-circle"></i>
+            Fecha de evaluaci&oacute;n: <strong>{{ data.fecha_evaluacion or 'No configurada' }}</strong>
+        </div>
     </div>
-</div>
-{% endfor %}
-
-<h5 class="mt-4 mb-3">Tabla completa de matches elegibles</h5>
-<div class="table-responsive">
-    <table class="table table-sm table-hover">
-        <thead class="table-light">
-            <tr>
-                <th>Estudiante</th>
-                <th>Beca</th>
-                <th>Pa&iacute;s</th>
-                <th>Monto</th>
-                <th>Puntaje</th>
-                <th>Carrera</th>
-                <th>Cierre</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for s in data.all_scored %}
-            <tr>
-                <td>{{ s.nombre_estudiante }}</td>
-                <td>{{ s.nombre_beca }}</td>
-                <td>{{ s.beca_pais }}</td>
-                <td>${{ "{:,.0f}".format(s.beca_monto) }}</td>
-                <td><span class="badge {% if s.score >= 80 %}bg-success{% elif s.score >= 50 %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ s.score }}</span></td>
-                <td>
-                    {% if s.carrera_exacta %}<span class="badge bg-success">Exacta</span>
-                    {% elif s.ia_aplicada %}<span class="badge bg-info text-dark">Af&iacute;n IA</span>
-                    {% else %}<span class="badge bg-secondary">No</span>{% endif %}
-                </td>
-                <td>{{ s.beca_fecha_cierre }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-<p class="text-muted mt-3"><small>Fecha de evaluaci&oacute;n usada: <strong>{{ data.fecha_evaluacion or 'No configurada' }}</strong></small></p>
+</section>
 {% endblock %}
 
 {% block scripts %}
@@ -198,5 +219,15 @@ document.getElementById('studentFilter').addEventListener('change', function() {
         card.style.display = (val === 'all' || card.dataset.student === val) ? '' : 'none';
     });
 });
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 </script>
 {% endblock %}
