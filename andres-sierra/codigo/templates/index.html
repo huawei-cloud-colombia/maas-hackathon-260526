@@ -1,87 +1,176 @@
 {% extends "base.html" %}
 {% block title %}BecaMatch AI - Cargar Datos{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="text-center mb-5">
-            <h1 class="display-5 fw-bold text-primary">Encuentra la beca correcta antes de que cierre</h1>
-            <p class="lead text-muted">Carga los datos de becas y estudiantes, y obt&eacute;n las 3 mejores recomendaciones con explicaci&oacute;n verificable.</p>
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container position-relative">
+        <div class="hero-content">
+            <div class="hero-tag animate-in" style="--delay:0s">
+                <i class="bi bi-cpu"></i> Potenciado por Huawei Cloud MaaS
+            </div>
+            <h1 class="hero-title animate-in" style="--delay:0.1s">
+                Encuentra la beca correcta<br>
+                <span class="hero-accent">antes de que cierre</span>
+            </h1>
+            <p class="hero-sub animate-in" style="--delay:0.2s">
+                Motor de elegibilidad determin&iacute;stico + IA explicable.<br>
+                Resultados verificables en segundos.
+            </p>
         </div>
+    </div>
+</section>
 
+<section class="upload-section">
+    <div class="container">
         {% if error %}
-        <div class="alert alert-warning">{{ error }}</div>
+        <div class="alert-card alert-error animate-in">
+            <i class="bi bi-shield-exclamation"></i>
+            <span>{{ error }}</span>
+        </div>
         {% endif %}
 
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-                <form id="uploadForm" enctype="multipart/form-data">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">
-                                <i class="bi bi-file-earmark-spreadsheet text-primary me-1"></i>Becas (becas.csv)
-                            </label>
-                            <input type="file" class="form-control" id="becas_csv" name="becas_csv" accept=".csv" required>
-                            <div class="form-text">Columnas: id_beca, nombre_beca, pa&iacute;s, monto, carreras_aceptadas, gpa_minimo, idioma_requerido, fecha_cierre, requiere_carta, situacion_ec</div>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="upload-grid">
+                <div class="drop-zone animate-in" style="--delay:0.3s" id="dropBecas">
+                    <div class="drop-zone-inner">
+                        <div class="drop-icon">
+                            <i class="bi bi-building"></i>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">
-                                <i class="bi bi-file-earmark-person text-primary me-1"></i>Estudiantes (estudiantes.csv)
-                            </label>
-                            <input type="file" class="form-control" id="estudiantes_csv" name="estudiantes_csv" accept=".csv" required>
-                            <div class="form-text">Columnas: id_estudiante, nombre, carrera, gpa, idiomas, pais_interes, situacion_economica, email</div>
+                        <h3>Becas</h3>
+                        <p>becas.csv</p>
+                        <input type="file" id="becas_csv" name="becas_csv" accept=".csv" required>
+                        <label for="becas_csv" class="drop-label">
+                            <i class="bi bi-cloud-arrow-up"></i> Arrastra o haz clic
+                        </label>
+                        <span class="drop-filename" id="becasFilename"></span>
+                        <small class="drop-hint">id_beca, nombre_beca, pa&iacute;s, monto, carreras_aceptadas, gpa_minimo, idioma_requerido, fecha_cierre, requiere_carta, situacion_ec</small>
+                    </div>
+                </div>
+
+                <div class="drop-zone animate-in" style="--delay:0.4s" id="dropEstudiantes">
+                    <div class="drop-zone-inner">
+                        <div class="drop-icon">
+                            <i class="bi bi-people"></i>
                         </div>
+                        <h3>Estudiantes</h3>
+                        <p>estudiantes.csv</p>
+                        <input type="file" id="estudiantes_csv" name="estudiantes_csv" accept=".csv" required>
+                        <label for="estudiantes_csv" class="drop-label">
+                            <i class="bi bi-cloud-arrow-up"></i> Arrastra o haz clic
+                        </label>
+                        <span class="drop-filename" id="estudiantesFilename"></span>
+                        <small class="drop-hint">id_estudiante, nombre, carrera, gpa, idiomas, pais_interes, situacion_economica, email</small>
                     </div>
-                    <div class="row g-4 mt-2">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">
-                                <i class="bi bi-calendar3 text-secondary me-1"></i>Fecha de evaluaci&oacute;n
-                            </label>
-                            <input type="text" class="form-control" id="fecha_evaluacion" name="fecha_evaluacion" placeholder="M/D/YYYY (ej: 6/1/2025)" value="">
-                            <div class="form-text">Becas con fecha de cierre anterior a esta fecha se marcan como cerradas. Vac&iacute;o = no filtrar por fecha.</div>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg px-5" id="btnGenerate">
-                            <i class="bi bi-stars me-2"></i>Generar recomendaciones
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+
+            <div class="config-row animate-in" style="--delay:0.5s">
+                <div class="config-item">
+                    <i class="bi bi-calendar-event"></i>
+                    <div>
+                        <label for="fecha_evaluacion">Fecha de evaluaci&oacute;n</label>
+                        <input type="text" id="fecha_evaluacion" name="fecha_evaluacion" placeholder="M/D/YYYY (ej: 6/1/2025)" value="">
+                    </div>
+                    <small>Becas cerradas antes de esta fecha se descartan</small>
+                </div>
+            </div>
+
+            <div class="cta-row animate-in" style="--delay:0.6s">
+                <button type="submit" class="btn-generate" id="btnGenerate">
+                    <span class="btn-generate-text">
+                        <i class="bi bi-stars"></i>
+                        Generar recomendaciones
+                    </span>
+                    <span class="btn-generate-loading d-none">
+                        <span class="spinner"></span>
+                        Procesando...
+                    </span>
+                </button>
+            </div>
+        </form>
 
         <div id="alertArea"></div>
 
-        <div id="loadingArea" class="text-center d-none">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2 text-muted">Procesando elegibilidad y generando recomendaciones...</p>
+        <div id="loadingArea" class="loading-overlay d-none">
+            <div class="loading-content">
+                <div class="loading-ring"></div>
+                <h3>Analizando elegibilidad</h3>
+                <p>Filtrando GPA, idiomas, fechas y generando ranking...</p>
+                <div class="loading-steps">
+                    <span class="step active">Cargando datos</span>
+                    <span class="step">Filtrando elegibilidad</span>
+                    <span class="step">Calculando puntajes</span>
+                    <span class="step">Generando top 3</span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
 
 {% block scripts %}
 <script>
+document.querySelectorAll('.drop-zone').forEach(zone => {
+    const input = zone.querySelector('input[type="file"]');
+    const filenameEl = zone.querySelector('.drop-filename');
+
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        if (e.dataTransfer.files.length) {
+            input.files = e.dataTransfer.files;
+            showFilename(input, filenameEl, zone);
+        }
+    });
+    input.addEventListener('change', () => showFilename(input, filenameEl, zone));
+});
+
+function showFilename(input, filenameEl, zone) {
+    if (input.files.length) {
+        filenameEl.textContent = input.files[0].name;
+        zone.classList.add('has-file');
+    }
+}
+
 document.getElementById('uploadForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('btnGenerate');
     const loading = document.getElementById('loadingArea');
     const alertArea = document.getElementById('alertArea');
+    btn.querySelector('.btn-generate-text').classList.add('d-none');
+    btn.querySelector('.btn-generate-loading').classList.remove('d-none');
     btn.disabled = true;
     loading.classList.remove('d-none');
     alertArea.innerHTML = '';
+
+    const steps = loading.querySelectorAll('.step');
+    let stepIdx = 0;
+    const stepInterval = setInterval(() => {
+        if (stepIdx < steps.length) {
+            steps[stepIdx].classList.add('active');
+            stepIdx++;
+        }
+    }, 800);
 
     const formData = new FormData(this);
     try {
         const resp = await fetch('/upload', {method: 'POST', body: formData});
         const data = await resp.json();
+        clearInterval(stepInterval);
         if (data.error) {
-            alertArea.innerHTML = `<div class="alert alert-danger"><i class="bi bi-exclamation-triangle me-2"></i>${data.error}</div>`;
+            alertArea.innerHTML = `<div class="alert-card alert-error"><i class="bi bi-shield-exclamation"></i><span>${data.error}</span></div>`;
         } else if (data.success) {
             window.location.href = '/results';
         }
     } catch(err) {
-        alertArea.innerHTML = `<div class="alert alert-danger">Error de conexi&oacute;n: ${err.message}</div>`;
+        clearInterval(stepInterval);
+        alertArea.innerHTML = `<div class="alert-card alert-error"><i class="bi bi-shield-exclamation"></i><span>Error de conexi&oacute;n: ${err.message}</span></div>`;
     } finally {
+        btn.querySelector('.btn-generate-text').classList.remove('d-none');
+        btn.querySelector('.btn-generate-loading').classList.add('d-none');
         btn.disabled = false;
         loading.classList.add('d-none');
     }
