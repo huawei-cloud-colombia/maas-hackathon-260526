@@ -348,16 +348,63 @@ class Asistente:
         self._agregar(bubble_asistente(ft.Column(items, spacing=10, tight=True)))
 
     # -------------------- flujos --------------------
+    def _reportes_existen(self) -> bool:
+        return (RAIZ / "reporte_becas.txt").exists() and (RAIZ / "reporte_becas.pdf").exists()
+
     def saludar(self):
+        opciones = [
+            quick_reply("Buscar mis becas", lambda e: self.flujo_buscar(), icono=ft.Icons.SEARCH, color=ACCENT),
+            quick_reply("Generar / regenerar reporte", lambda e: self.flujo_reporte(), icono=ft.Icons.PICTURE_AS_PDF, color=PRIMARY_SOFT),
+            quick_reply("Cómo funciona", lambda e: self.flujo_ayuda(), icono=ft.Icons.HELP_OUTLINE, color=OK),
+        ]
+        if self._reportes_existen():
+            opciones.insert(
+                0,
+                quick_reply("Descargar reportes", lambda e: self.flujo_descargas(), icono=ft.Icons.DOWNLOAD_ROUNDED, color=PRIMARY_SOFT),
+            )
         self.bot_dice(
             f"¡Hola! Soy el asistente IA de la Oficina de Relaciones Internacionales de {UNIVERSIDAD}. "
             f"Te puedo ayudar a encontrar becas que encajen con tu perfil.\n\n¿Qué quieres hacer?",
-            opciones=[
-                quick_reply("Buscar mis becas", lambda e: self.flujo_buscar(), icono=ft.Icons.SEARCH, color=ACCENT),
-                quick_reply("Ver reporte general", lambda e: self.flujo_reporte(), icono=ft.Icons.PICTURE_AS_PDF, color=PRIMARY_SOFT),
-                quick_reply("Cómo funciona", lambda e: self.flujo_ayuda(), icono=ft.Icons.HELP_OUTLINE, color=OK),
-            ],
+            opciones=opciones,
         )
+
+    def flujo_descargas(self):
+        self.usuario_dice("Descargar reportes")
+        contenido = ft.Column(
+            [
+                ft.Row(
+                    [
+                        ft.Icon(ft.Icons.FOLDER_OPEN, color=PRIMARY_SOFT, size=18),
+                        ft.Text("Reportes disponibles", color=TEXT_MAIN, size=14, weight=ft.FontWeight.W_700),
+                    ],
+                    spacing=6,
+                ),
+                ft.Text("Toca para abrir/descargar en tu navegador:", color=TEXT_DIM, size=12),
+                ft.Row(
+                    [
+                        quick_reply(
+                            "Descargar PDF estilizado",
+                            lambda e: self._descargar("/reporte_becas.pdf"),
+                            icono=ft.Icons.PICTURE_AS_PDF,
+                            color=PRIMARY_SOFT,
+                        ),
+                        quick_reply(
+                            "Descargar TXT oficial",
+                            lambda e: self._descargar("/reporte_becas.txt"),
+                            icono=ft.Icons.DESCRIPTION_OUTLINED,
+                            color=ACCENT,
+                        ),
+                    ],
+                    wrap=True,
+                    spacing=6,
+                    run_spacing=6,
+                ),
+            ],
+            spacing=8,
+            tight=True,
+        )
+        self._typing(0.3)
+        self._agregar(bubble_asistente(contenido))
 
     def flujo_buscar(self):
         self.usuario_dice("Buscar mis becas")
@@ -463,21 +510,52 @@ class Asistente:
         self.bot_dice("Ejecutando el motor… esto puede tardar un poco por las llamadas al MaaS.")
         threading.Thread(target=self._generar_reporte_async, daemon=True).start()
 
+    def _descargar(self, ruta_relativa: str):
+        # Los reportes viven en arias/ y se sirven desde assets_dir como rutas
+        # absolutas de URL. En modo web abre en pestaña; en desktop usa app
+        # nativa via launch_url.
+        self.page.launch_url(ruta_relativa)
+
     def _generar_reporte_async(self):
         try:
             txt, pdf = self.harness.generar_reporte()
             self._typing(0.4)
-            self._agregar(bubble_asistente(
-                ft.Column(
-                    [
-                        ft.Row([ft.Icon(ft.Icons.CHECK_CIRCLE, color=OK, size=18), ft.Text("Reporte generado", color=OK, size=14, weight=ft.FontWeight.W_700)], spacing=6),
-                        ft.Text(f"TXT:  {txt}", color=TEXT_DIM, size=11),
-                        ft.Text(f"PDF: {pdf}", color=TEXT_DIM, size=11),
-                    ],
-                    spacing=6,
-                    tight=True,
-                ),
-            ))
+            contenido = ft.Column(
+                [
+                    ft.Row(
+                        [
+                            ft.Icon(ft.Icons.CHECK_CIRCLE, color=OK, size=18),
+                            ft.Text("Reporte generado", color=OK, size=14, weight=ft.FontWeight.W_700),
+                        ],
+                        spacing=6,
+                    ),
+                    ft.Text("Descarga los archivos:", color=TEXT_MAIN, size=13),
+                    ft.Row(
+                        [
+                            quick_reply(
+                                "Descargar PDF",
+                                lambda e: self._descargar("/reporte_becas.pdf"),
+                                icono=ft.Icons.PICTURE_AS_PDF,
+                                color=PRIMARY_SOFT,
+                            ),
+                            quick_reply(
+                                "Descargar TXT",
+                                lambda e: self._descargar("/reporte_becas.txt"),
+                                icono=ft.Icons.DESCRIPTION_OUTLINED,
+                                color=ACCENT,
+                            ),
+                        ],
+                        wrap=True,
+                        spacing=6,
+                        run_spacing=6,
+                    ),
+                    ft.Text(f"Ruta TXT: {txt}", color=TEXT_DIM, size=10),
+                    ft.Text(f"Ruta PDF: {pdf}", color=TEXT_DIM, size=10),
+                ],
+                spacing=8,
+                tight=True,
+            )
+            self._agregar(bubble_asistente(contenido))
         except Exception as exc:  # noqa: BLE001
             self.bot_dice(f"No pude generar el reporte: {exc}")
 
@@ -633,7 +711,10 @@ def main(page: ft.Page):
 if __name__ == "__main__":
     import os
     modo_web = os.environ.get("APP_MODE", "web").lower() == "web"
+    # Servimos arias/ como assets para que reporte_becas.pdf / .txt sean
+    # descargables vía launch_url("/reporte_becas.pdf") en modo web.
+    assets_dir = str(RAIZ)
     if modo_web:
-        ft.run(main, view=ft.AppView.WEB_BROWSER, port=8550)
+        ft.run(main, view=ft.AppView.WEB_BROWSER, port=8550, assets_dir=assets_dir)
     else:
-        ft.run(main)
+        ft.run(main, assets_dir=assets_dir)
