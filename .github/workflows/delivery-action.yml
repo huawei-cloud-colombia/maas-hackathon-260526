@@ -17,7 +17,7 @@ jobs:
 
       - name: Validate PR deadline
         run: |
-          deadline_date="2026-05-26"
+          deadline_date="2026-05-25"
           deadline_time="11:20"
 
           echo "Hora actual del envío: $CURRENT_DATE $CURRENT_TIME"
