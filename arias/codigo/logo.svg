@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80" role="img" aria-label="Universidad Nova Andes">
+  <defs>
+    <linearGradient id="gradPeak" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C5CFF"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="gradInner" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A38BFF"/>
+      <stop offset="100%" stop-color="#7C5CFF"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feOffset dx="0" dy="1.4" result="off"/>
+      <feMerge><feMergeNode in="off"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Isotipo: tres picos (Andes) + estrella superior -->
+  <g transform="translate(8,8)" filter="url(#softShadow)">
+    <!-- pico izquierdo -->
+    <path d="M0 60 L18 18 L36 60 Z" fill="url(#gradInner)" opacity="0.85"/>
+    <!-- pico central (principal) -->
+    <path d="M12 60 L34 6 L56 60 Z" fill="url(#gradPeak)"/>
+    <!-- pico derecho -->
+    <path d="M30 60 L48 22 L64 60 Z" fill="url(#gradInner)" opacity="0.75"/>
+    <!-- nieve picos -->
+    <path d="M28 18 L34 6 L40 18 L36 22 L32 22 Z" fill="#F5F7FF"/>
+    <!-- estrella sobre el pico -->
+    <g transform="translate(34,-4)">
+      <circle r="6.5" fill="#22D3EE" opacity="0.25"/>
+      <polygon points="0,-4 1.2,-1.2 4,-1.2 1.8,0.6 2.6,3.4 0,1.8 -2.6,3.4 -1.8,0.6 -4,-1.2 -1.2,-1.2"
+               fill="#22D3EE"/>
+    </g>
+    <!-- línea base -->
+    <line x1="-4" y1="62" x2="68" y2="62" stroke="#7C5CFF" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+  </g>
+
+  <!-- Logotipo -->
+  <g transform="translate(96,0)">
+    <text x="0" y="36" font-family="Inter, 'Helvetica Neue', Arial, sans-serif"
+          font-size="22" font-weight="800" fill="#0B1020" letter-spacing="0.5">
+      Universidad
+    </text>
+    <text x="0" y="62" font-family="Inter, 'Helvetica Neue', Arial, sans-serif"
+          font-size="26" font-weight="900" letter-spacing="1.2">
+      <tspan fill="#7C5CFF">Nova</tspan><tspan fill="#22D3EE"> Andes</tspan>
+    </text>
+    <text x="0" y="76" font-family="Inter, 'Helvetica Neue', Arial, sans-serif"
+          font-size="8" font-weight="500" fill="#5B6BA0" letter-spacing="3">
+      OFICINA DE RELACIONES INTERNACIONALES
+    </text>
+  </g>
+</svg>

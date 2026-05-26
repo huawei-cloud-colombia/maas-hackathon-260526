@@ -1,0 +1,247 @@
+============================================================
+PROMPT MAESTRO — Ingeniería inversa del proyecto completo
+============================================================
+
+Este es un único prompt diseñado para entregarse a un agente de codificación
+capaz (Claude Code, Cursor Agent, GPT-Engineer, Aider, etc.) y regenerar todo
+el proyecto entregado al Hackatón Huawei Cloud Colombia · MaaS · 26 mayo 2026.
+
+------------------------------------------------------------
+INSTRUCCIÓN PARA EL AGENTE
+------------------------------------------------------------
+
+Eres un ingeniero senior. Vas a construir, en un solo paso y sin pedir
+aclaraciones que no sean estrictamente necesarias, un sistema de
+recomendación de becas para una universidad. El sistema debe quedar listo
+para entregar al Hackatón Huawei Cloud Colombia (MaaS) bajo la estructura
+de entrega oficial.
+
+RETO
+----
+La Oficina de Relaciones Internacionales de una universidad recibe cientos
+de convocatorias de becas por semestre. Los estudiantes pierden
+oportunidades porque no encuentran becas relevantes. Hay que filtrar y
+priorizar becas según el perfil de cada estudiante.
+
+INSUMOS QUE RECIBES
+-------------------
+1. Endpoint Huawei MaaS:
+   - URL: https://api-ap-southeast-1.modelarts-maas.com/openai/v1
+     (compatible OpenAI)
+   - API Key: provista por variable de entorno MAAS_API_KEY
+   - Modelo: deepseek-v4-flash (por defecto; debe ser configurable)
+2. Dos CSV en la raíz:
+   - becas.csv con columnas:
+     id_beca, nombre_beca, pais, monto, carreras_aceptadas, gpa_minimo,
+     idioma_requerido, fecha_cierre, requiere_carta, situacion_ec
+   - estudiantes.csv con columnas:
+     id_estudiante, nombre, carrera, gpa, idiomas, pais_interes,
+     situacion_economica, email
+
+ENTREGABLES (estructura exacta)
+-------------------------------
+Crea una carpeta con tu primer-nombre+primer-apellido en minúsculas,
+ej. `arias/`, y dentro:
+
+  arias/
+  ├── README.md
+  ├── requerimientos.txt
+  ├── prompt_usado.txt
+  ├── reporte_becas.txt        (entregable oficial)
+  ├── reporte_becas.pdf        (versión estilizada con logo)
+  ├── .gitignore
+  └── codigo/
+      ├── becas.csv
+      ├── estudiantes.csv
+      ├── logo.svg             (logo de universidad inventada)
+      ├── matcher.py
+      ├── llm.py
+      ├── pdf_report.py
+      ├── main.py
+      └── app.py               (chat interactivo)
+
+ARQUITECTURA — Híbrida (NO uses el LLM como filtro)
+---------------------------------------------------
+1. Cargar y normalizar CSVs con pandas.
+2. Aplicar filtros DETERMINISTAS en Python:
+   - GPA: estudiante.gpa >= beca.gpa_minimo
+   - País: beca.pais ∈ estudiante.pais_interes, con caso especial
+     "Europa" que matchea cualquier país europeo y viceversa.
+   - Carrera: estudiante.carrera encaja con beca.carreras_aceptadas,
+     usando matching tolerante por substring/token overlap. Si dice
+     "Todas las carreras", siempre pasa.
+   - Idioma: parsea "Inglés C1, Alemán A2" → [(idioma, nivel)]. El
+     estudiante debe cumplir cada idioma requerido al nivel pedido o
+     superior. Usa orden CEFR (A1<A2<B1<B2<C1<C2) y JLPT
+     (N5<N4<N3<N2<N1).
+   - Fecha: las becas con fecha_cierre < hoy se marcan como "Vencida"
+     pero NO se descartan (útil para el demo con datos antiguos).
+   - Situación económica: si la beca define situacion_ec, debe coincidir
+     con la del estudiante (vacío = abierta a cualquiera).
+3. Computar un score base sumando puntos por cada coincidencia y
+   ordenar para obtener top-3 por estudiante.
+4. Si no hay 3 becas válidas, completar con "near misses" marcadas con
+   advertencias.
+5. Para cada match del top-3, llamar al MaaS para obtener:
+   - fit_score (0-100, entero)
+   - explicacion (max 3 oraciones, segunda persona)
+   - siguientes_pasos (1 oración accionable)
+   Forzar respuesta JSON estricta; parsear con tolerancia (regex para
+   recuperar el bloque {…} aunque venga envuelto en texto o ```json).
+6. Persistir las respuestas en `.llm_cache.json` (clave =
+   `{id_estudiante}::{id_beca}`) para que re-ejecuciones sean
+   instantáneas.
+7. Retry con backoff exponencial (2/4/8/16s) ante HTTP 429.
+
+PROMPTS A USAR EN EL MaaS
+-------------------------
+SYSTEM: "Eres un asesor de la Oficina de Relaciones Internacionales de
+una universidad. Tu misión es ayudar a estudiantes a entender por qué
+una beca encaja con su perfil y orientarlos sobre próximos pasos. Sé
+concreto, cálido y útil. No inventes datos que no estén en la
+información que recibes. Responde siempre en español neutro."
+
+USER (template): incluye datos del estudiante (nombre, carrera, GPA,
+idiomas, países, situación), datos de la beca (nombre, país, monto,
+carreras, GPA mínimo, idiomas requeridos, cierre, carta), las
+coincidencias detectadas por filtros y las advertencias. Termina pidiendo
+un JSON estricto con fit_score, explicacion y siguientes_pasos.
+
+Parámetros: temperature=0.3, max_tokens=400.
+
+reporte_becas.txt (formato)
+---------------------------
+Encabezado con título, nombre de la universidad inventada, fecha y
+totales. Por cada estudiante: bloque separado por líneas de "-", con
+sus datos y debajo el top 3. Para cada beca: número, nombre, país,
+monto, fechas, GPA mínimo, idioma, score interno, fit LLM, razones
+(bullets ✓), advertencias (bullets !), y la recomendación del asesor IA.
+
+reporte_becas.pdf (formato)
+---------------------------
+Usar reportlab (NO svglib porque pide cairo). Inventa una universidad
+("Universidad Nova Andes" funciona bien) y dibuja su logo:
+- Tres picos andinos en gradiente PRIMARY→ACCENT con nieve en el central
+- Estrella sobre el pico principal con halo cyan
+- Línea base sutil
+- Logotipo con "Universidad" + "Nova Andes" en dos colores + tagline en
+  letras espaciadas "OFICINA DE RELACIONES INTERNACIONALES"
+Genera también `codigo/logo.svg` equivalente (mismas formas y colores).
+
+Layout del PDF:
+- Header en cada página con banda crema y logo a la izquierda + sello
+  "REPORTE OFICIAL" a la derecha
+- Caja de resumen con totales
+- Por estudiante: tarjeta primary con avatar de iniciales sobre fondo
+  semitransparente, nombre, carrera, GPA, situación, idiomas, países
+- Por beca: tarjeta blanca con cinta lateral primary numerada, título,
+  metadata (país, monto, cierre, GPA min, idioma), badge VIGENTE/VENCIDA
+  (verde/rojo), score interno + fit LLM, sección "Por qué encaja"
+  (verde, bullets •), sección "Advertencias" (ámbar, bullets !) si
+  aplica, y caja "Asesor IA" con la explicación y un siguiente paso
+- Footer con paginación
+
+GUI — Chat asistente (codigo/app.py)
+------------------------------------
+Usar Flet (>= 0.85). Es Flutter desde Python, multiplataforma. La GUI es
+un CHAT con un asistente de la universidad, no una pantalla de cards
+clásica. Comportamiento:
+
+1. Saludo inicial: el asistente saluda y ofrece tres chips tocables:
+   "Buscar mis becas", "Ver reporte general", "Cómo funciona".
+2. Al tocar "Buscar mis becas", el asistente envía una BURBUJA con una
+   LISTA estilo WhatsApp (avatares, nombre, subtítulo con carrera + GPA,
+   trailing con el primer país de interés) de los 10 estudiantes.
+3. Al elegir un estudiante: usuario_dice("Soy {nombre}") y el asistente
+   responde personalizado, luego ejecuta el matcher (HARNESS) y muestra
+   las 3 becas en TARJETAS DENTRO DE UNA BURBUJA. Cada tarjeta tiene
+   chips de monto, país, GPA mínimo, idioma, fecha; badge VIGENTE/VENCIDA;
+   y dos botones inline: "Por qué encaja" (dispara LLM) y "Detalles".
+4. Al tocar "Por qué encaja", el asistente llama al MaaS de forma
+   asíncrona y muestra una burbuja con la explicación del Asesor IA y
+   el siguiente paso.
+5. Al tocar "Generar mi reporte PDF", el asistente ejecuta main.py y
+   reporta las rutas de los archivos.
+
+Reglas visuales:
+- Tema oscuro (BG_TOP=#0B1020, BG_BOTTOM=#161A36, gradient).
+- Burbujas del asistente: fondo translúcido blanco con borde y sombra
+  difusa; bordes redondeados con la esquina top-left más cerrada.
+- Burbujas del usuario: gradient PRIMARY→#5B3FE5, esquina top-right más
+  cerrada, sombra purple, checkmark doble.
+- Indicador de typing: avatar + 3 puntos animados (opacidad escalonada).
+- Animaciones: animate_opacity y animate_offset en cada burbuja, ease_out.
+- Tipografía moderna (Inter si está disponible).
+- Avatares con iniciales sobre gradient PRIMARY→ACCENT.
+
+CRÍTICO — Flet 0.85+ rompió varias APIs:
+- Los módulos lowercase ya no tienen funciones helper. Usa siempre las
+  clases capitalizadas:
+    ft.Padding.symmetric(horizontal=X, vertical=Y)
+    ft.Padding.all(N)
+    ft.Padding(left=X, right=Y, top=Z, bottom=W)
+    ft.BorderRadius.only(top_left=..., ...)
+    ft.BorderRadius.all(N)
+    ft.Border.all(width, color)
+    ft.Border(top=ft.BorderSide(1, color))
+    ft.Alignment.CENTER, ft.Alignment.TOP_LEFT, etc.
+- Los colores son ARGB (#AARRGGBB), NO el clásico CSS RGBA (#RRGGBBAA).
+  Si quieres un blanco con 7% de opacidad, escribe "#12FFFFFF", no
+  "#FFFFFF12". Si lo escribes mal, los bubbles aparecen amarillos
+  porque Flet interpreta los hex bytes como ARGB.
+- Para iniciar, usa ft.run(main, view=ft.AppView.WEB_BROWSER, port=8550)
+  (ft.app() está deprecado).
+
+HARNESS
+-------
+La clase `Harness` expone las "tools" que el asistente puede invocar
+internamente: listar_estudiantes, buscar_estudiante, buscar_becas (corre
+matcher), explicar (llama LLM con cache), generar_reporte (lanza
+subprocess de main.py). Cada acción del usuario en el chat se traduce
+en una llamada a una tool del harness, dejando el chat como una capa de
+presentación que orquesta intención → tool → respuesta.
+
+DEPENDENCIAS
+------------
+- pandas>=2.0
+- requests>=2.31
+- reportlab>=4.0   (PDF + logo vectorial nativo, sin cairo)
+- flet>=0.85       (GUI multiplataforma)
+
+NO uses svglib ni cairosvg — fallan en sistemas sin pkg-config/cairo.
+
+REGLAS DE ENTREGA (HACKATÓN)
+----------------------------
+- Crea una rama git con tu nombre `mauricio-arias` o equivalente.
+- Crea una carpeta en la raíz del repo con el mismo nombre.
+- No subas .env, .venv, credenciales ni el .llm_cache.json
+  (añádelos al .gitignore).
+- Commit message tipo "feat: entrega de reto de <Nombre>".
+- Si no tienes permisos directos al repo oficial: fork, push a tu fork,
+  PR cross-repo hacia main del repo oficial.
+- prompt_usado.txt debe contener SYSTEM, USER template, parámetros y la
+  estrategia de uso del MaaS (filtros antes que LLM, cache, retry).
+- README.md explica instalación, configuración, ejecución y arquitectura.
+
+CRITERIOS DE CALIDAD
+--------------------
+- Modular: cada archivo tiene una responsabilidad clara.
+- Sin dependencias C nativas (cairo, pkg-config).
+- Resistente a rate limits (retry + cache).
+- Demo legible: TXT, PDF y chat funcionan independientemente.
+- El chat se ve moderno: gradientes, sombras, animaciones, glassmorphism.
+- El PDF parece un documento oficial: logo a la izquierda, sello a la
+  derecha, paginación, tipografía cuidada.
+
+------------------------------------------------------------
+NOTA FINAL
+------------------------------------------------------------
+Cuando termines, ejecuta:
+  python codigo/main.py
+para generar reportes, y
+  python codigo/app.py
+para abrir el chat en el navegador. Verifica que el chat NO se vea
+amarillo (eso indica que confundiste el formato de colores ARGB).
+
+Entregable mínimo: los 5 archivos de la carpeta `arias/` + la subcarpeta
+`codigo/` completa.

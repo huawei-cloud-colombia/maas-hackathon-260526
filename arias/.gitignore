@@ -1,0 +1,22 @@
+# Variables de entorno
+.env
+*.env
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Cache de explicaciones del MaaS (re-generable)
+.llm_cache.json
+codigo/.llm_cache.json
+
+# Sistema
+.DS_Store
+*.Zone.Identifier
+
+# Flet
+storage/
