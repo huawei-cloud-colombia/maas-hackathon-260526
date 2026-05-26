@@ -1,22 +1,65 @@
-# Prompts utilizados en Huawei MaaS
+# Prompts utilizados en Huawei MaaS + OpenCode
 
-## Prompt 1: Análisis inicial
+## Prompt 1: Integración OpenCode + MaaS
 
-Analiza la siguiente solicitud de API y genera una solución optimizada que utilice los servicios de Huawei MaaS.
+"Integra OpenCode con Huawei Cloud MaaS ModelArts. Crea un cliente Python que:
+- Conecte con endpoint: https://api-ap-southeast-1.modelarts-maas.com/openai/v1
+- Use modelo GLM-5
+- Implemente métodos para: chat_completion, code_generation, code_analysis
+- Maneje autenticación con API key de forma segura
+- Valide respuestas y errores de API
+Sigue estándares OpenAI SDK."
 
-Requisitos:
-- Maximizar el uso de APIs disponibles
-- Optimizar costos de procesamiento
-- Implementar manejo robusto de errores
+## Prompt 2: Generación de cliente MaaS
 
-## Prompt 2: Generación de código
+"Crea un cliente Python robusto para Huawei MaaS con:
+- Clase HuaweiMaaSClient que encapsule conexión
+- Método chat_completion(messages, temperature, max_tokens)
+- Método code_generation(prompt, language)
+- Método analyze_code(code)
+- Manejo de excepciones y timeouts
+- Logging de solicitudes
+- Documentación con docstrings
+Usa OpenAI SDK como base, compatibilidad completa."
 
-Genera código Python que implemente la solución propuesta siguiendo mejores prácticas de desarrollo.
+## Prompt 3: Configuración segura
 
-## Prompt 3: Documentación
+"Diseña esquema de configuración para OpenCode + Huawei MaaS:
+- Template JSON de configuración
+- Variables de entorno (.env)
+- Instrucciones de setup
+- Mejores prácticas de seguridad
+- Gestión de credenciales
+No incluir claves en repositorio. Usar gitignore."
 
-Documenta el código generado explicando cada función y módulo de forma clara.
+## Prompt 4: Documentación README
+
+"Escribe README completo para solución Hackathon Huawei MaaS:
+- Descripción del proyecto
+- Prerrequisitos y dependencias
+- Pasos instalación detallados
+- Configuración OpenCode + MaaS
+- Ejemplos de uso con cliente Python
+- Troubleshooting común
+- Referencias y documentación oficial
+Formato markdown, secc iones claras."
+
+## Prompt 5: Validación y testing
+
+"Crea tests para cliente HuaweiMaaSClient:
+- Test de autenticación
+- Test de conexión a endpoint
+- Test de métodos (chat, code gen, analysis)
+- Manejo de errores y excepciones
+- Mock de respuestas de API
+- Validación de formato de requests/responses
+Usa pytest, no requiere API key real en tests."
 
 ---
 
-Fecha de desarrollo: 26 de mayo de 2026
+**Contexto de desarrollo:**
+- Hackathón Huawei Colombia MaaS - 26 de mayo de 2026
+- Integración OpenCode con plataforma MaaS
+- Cliente Python con OpenAI SDK compatible
+- Enfoque en producción: seguridad, documentación, testing
+- Región: Asia-Pacific (Hongkong)

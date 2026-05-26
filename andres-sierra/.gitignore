@@ -58,6 +58,17 @@ htmlcov/
 *.private
 secrets.txt
 credentials.json
+opencode.json
+~/.config/opencode/
+
+# Configuración Huawei MaaS
+.huawei-config
+huawei-credentials.json
+
+# API Keys y tokens
+API_KEY
+**/api_key.txt
+**/token.txt
 
 # Archivos temporales
 *.tmp
