@@ -6,7 +6,7 @@ Sistema que filtra y prioriza becas según el perfil de cada estudiante, combina
 **filtros deterministas** en Python con **explicaciones generadas por LLM**
 (Huawei MaaS · DeepSeek-V4-Flash).
 
-Tres entregables:
+Entregables:
 
 1. **`reporte_becas.txt`** — formato oficial pedido por el hackatón, top 3 becas por
    estudiante con razones y recomendación del asesor IA.
@@ -14,8 +14,11 @@ Tres entregables:
    tarjetas, badges y diseño moderno.
 3. **Chat asistente** (Flet/Flutter) — interfaz tipo WhatsApp con burbujas
    interactivas, listas, animaciones y un *harness* que ejecuta acciones
-   (matching, LLM, generación de reportes) en respuesta a los mensajes del
-   estudiante.
+   (matching, LLM, generación de reportes, **upload** de nuevos CSVs y
+   **descarga** de reportes) en respuesta a los mensajes del estudiante.
+4. **`prompt_maestro.txt`** — prompt único de ingeniería inversa que, entregado
+   a un agente codificador capaz (Claude Code, Cursor, Aider…), regenera todo
+   el proyecto desde cero.
 
 ---
 
@@ -60,6 +63,7 @@ arias/
 ├── README.md
 ├── requerimientos.txt
 ├── prompt_usado.txt
+├── prompt_maestro.txt          ← prompt de ingeniería inversa
 ├── reporte_becas.txt           ← entregable oficial
 ├── reporte_becas.pdf           ← versión estilizada
 └── codigo/
@@ -150,9 +154,44 @@ El chat:
 - al elegir un estudiante, ejecuta el **harness** (`matcher.top_matches`) y
   muestra las 3 becas en tarjetas dentro de una burbuja;
 - cada tarjeta tiene botones *Por qué encaja* (dispara LLM) y *Detalles*;
-- un botón final dispara la **generación del PDF** desde el chat;
+- un botón **Generar / regenerar reporte** dispara `main.py` desde el chat;
 - transiciones de opacidad/offset, indicador de typing con tres puntos
   animados, gradientes y sombras tipo glassmorphism.
+
+#### Descargar los reportes desde el chat
+
+`app.py` se inicia con `assets_dir=arias/`, por lo que el servidor de Flet
+expone `reporte_becas.pdf` y `reporte_becas.txt` como archivos estáticos
+(`/reporte_becas.pdf`, `/reporte_becas.txt`) con su `Content-Type` correcto.
+
+- Si los reportes ya existen, el saludo muestra el chip **"Descargar
+  reportes"** arriba del todo.
+- Tras *Generar / regenerar reporte*, la burbuja de éxito muestra
+  **"Descargar PDF"** y **"Descargar TXT"**.
+- Los botones llaman a `UrlLauncher().launch_url(url, web_only_window_name="_blank")`
+  para abrir el archivo en una pestaña nueva (Chrome muestra el PDF inline
+  con su propio botón de descarga; el TXT lo muestra inline).
+
+#### Cargar tus propios CSVs desde el chat
+
+El chip **"Cargar mis CSVs"** abre el selector de archivos del navegador
+(`FilePicker`, registrado en `page.services`). Puedes seleccionar uno o
+varios CSV al mismo tiempo:
+
+1. El asistente lee los bytes (`with_data=True`) y detecta el tipo por
+   las columnas de la cabecera:
+   - `id_beca, nombre_beca, pais, monto, …` ⇒ **becas**
+   - `id_estudiante, nombre, carrera, gpa, …` ⇒ **estudiantes**
+2. Cada CSV reconocido sobrescribe `codigo/becas.csv` o
+   `codigo/estudiantes.csv`, y el `Harness` recarga el motor (limpiando
+   el cache LLM porque el dataset cambió).
+3. Los archivos con cabeceras desconocidas se reportan en la misma
+   burbuja con un `!`.
+4. La burbuja de confirmación ofrece accesos rápidos para
+   **Buscar becas con estos datos** y **Regenerar reporte**.
+
+Esto permite trabajar con múltiples datasets en la misma sesión sin tocar
+disco a mano.
 
 ---
 
@@ -215,6 +254,11 @@ Los prompts completos están en `prompt_usado.txt`.
 - Flet 0.85+ usa **colores ARGB** (`#AARRGGBB`) en vez del clásico CSS
   `#RRGGBBAA`. Si modificas paletas, recuerda poner el alpha al principio,
   no al final.
+- En Flet 0.85+, `FilePicker` es un **service** (va en `page.services`,
+  no en `page.overlay`) y `pick_files()` es **coroutine** — debe esperarse
+  con `await` dentro de una tarea registrada vía `page.run_task(...)`.
+- `page.launch_url()` está deprecado desde Flet 0.90. Usa
+  `UrlLauncher().launch_url(url)` registrado como service.
 
 ---
 
